@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="ConnStrSQLServer">
+      <rd:DataSourceID>3ebf1290-49bb-4948-8ef0-19b11092d4dd</rd:DataSourceID>
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+    </DataSource>
+  </DataSources>
+  <InteractiveHeight>29.7cm</InteractiveHeight>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>21cm</InteractiveWidth>
+  <rd:GridSpacing>0.25cm</rd:GridSpacing>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <RightMargin>2.5cm</RightMargin>
+  <LeftMargin>2.5cm</LeftMargin>
+  <PageHeader>
+    <PrintOnFirstPage>true</PrintOnFirstPage>
+    <ReportItems>
+      <Line Name="line1">
+        <Top>2cm</Top>
+        <Width>9.5cm</Width>
+        <Style>
+          <BorderColor>
+            <Default>DimGray</Default>
+          </BorderColor>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+          <BorderWidth>
+            <Default>2pt</Default>
+          </BorderWidth>
+        </Style>
+        <ZIndex>3</ZIndex>
+        <Left>6cm</Left>
+        <Height>0cm</Height>
+      </Line>
+      <Textbox Name="textbox3">
+        <rd:DefaultName>textbox3</rd:DefaultName>
+        <Top>0.75cm</Top>
+        <Width>7.75cm</Width>
+        <Style>
+          <Color>Red</Color>
+          <FontSize>16pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Center</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>2</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>7cm</Left>
+        <Height>0.75cm</Height>
+        <Value>REPORTE DE USUARIOS</Value>
+      </Textbox>
+      <Image Name="image1">
+        <Sizing>Fit</Sizing>
+        <Top>0.75cm</Top>
+        <Width>3.5cm</Width>
+        <MIMEType>image/png</MIMEType>
+        <Source>Embedded</Source>
+        <Style />
+        <ZIndex>1</ZIndex>
+        <Left>1cm</Left>
+        <Height>1.25cm</Height>
+        <Value>logoempresa</Value>
+      </Image>
+      <Line Name="line2">
+        <Top>0.25cm</Top>
+        <Width>15cm</Width>
+        <Style>
+          <BorderColor>
+            <Default>DimGray</Default>
+          </BorderColor>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+          <BorderWidth>
+            <Default>2pt</Default>
+          </BorderWidth>
+        </Style>
+        <Left>0.5cm</Left>
+        <Height>0cm</Height>
+      </Line>
+    </ReportItems>
+    <Height>2.25cm</Height>
+    <PrintOnLastPage>true</PrintOnLastPage>
+  </PageHeader>
+  <BottomMargin>2.5cm</BottomMargin>
+  <rd:ReportID>dff2558f-3a30-43ad-9cac-82e6248a003a</rd:ReportID>
+  <EmbeddedImages>
+    <EmbeddedImage Name="logoempresa">
+      <MIMEType>image/jpeg</MIMEType>
+      <ImageData>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</ImageData>
+    </EmbeddedImage>
+  </EmbeddedImages>
+  <PageWidth>21cm</PageWidth>
+  <DataSets>
+    <DataSet Name="DSaspnet_Users_Aspnet_Users_ReadUsersByUserName">
+      <Fields>
+        <Field Name="UserId">
+          <DataField>UserId</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="UserName">
+          <DataField>UserName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>ConnStrSQLServer</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>dbo.Aspnet_Users_ReadUsersByUserName</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DSaspnet_Users</rd:DataSetName>
+        <rd:TableName>Aspnet_Users_ReadUsersByUserName</rd:TableName>
+        <rd:TableAdapterName>Aspnet_Users_ReadUsersByUserNameTableAdapter</rd:TableAdapterName>
+        <rd:TableAdapterFillMethod>Fillaspnet_UsersByUsers</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>Getaspnet_UsersByUsers</rd:TableAdapterGetDataMethod>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DSUsuario_Usuariosxdependencia">
+      <Fields>
+        <Field Name="UserId">
+          <DataField>UserId</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DependenciaCodigo">
+          <DataField>DependenciaCodigo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NombresUsuario">
+          <DataField>NombresUsuario</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ApellidosUsuario">
+          <DataField>ApellidosUsuario</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>ConnStrSQLServer</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>dbo.ReadUserxDependencia</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DSUsuario</rd:DataSetName>
+        <rd:TableName>Usuariosxdependencia</rd:TableName>
+        <rd:TableAdapterName>UsuariosxdependenciaTableAdapter</rd:TableAdapterName>
+        <rd:TableAdapterFillMethod>FillUserxDependencia</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetUserxDependencia</rd:TableAdapterGetDataMethod>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DSUsuario_usuarios_alfaweb">
+      <Fields>
+        <Field Name="apellidos">
+          <DataField>apellidos</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="nombres">
+          <DataField>nombres</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="usuario">
+          <DataField>usuario</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="password">
+          <DataField>password</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="dependencia">
+          <DataField>dependencia</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="perfil">
+          <DataField>perfil</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>ConnStrSQLServer</DataSourceName>
+        <CommandText>SELECT     apellidos, nombres, usuario, password, dependencia, perfil
+FROM         [usuarios alfaweb]</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DSUsuario</rd:DataSetName>
+        <rd:TableName>usuarios alfaweb</rd:TableName>
+        <rd:TableAdapterName>usuarios_alfawebTableAdapter</rd:TableAdapterName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DSaspnet_Users_aspnet_Profile_PorpertyUsers">
+      <Fields>
+        <Field Name="UserId">
+          <DataField>UserId</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="UserName">
+          <DataField>UserName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PropertyNames">
+          <DataField>PropertyNames</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PropertyValuesString">
+          <DataField>PropertyValuesString</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>ConnStrSQLServer</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>dbo.aspnet_Profile_PorpertyUsers</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DSaspnet_Users</rd:DataSetName>
+        <rd:TableName>aspnet_Profile_PorpertyUsers</rd:TableName>
+        <rd:TableAdapterName>aspnet_Profile_PorpertyUsersTableAdapter</rd:TableAdapterName>
+        <rd:TableAdapterFillMethod>FillProfilePropertyUser</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetProfilePropertyUser</rd:TableAdapterGetDataMethod>
+      </rd:DataSetInfo>
+    </DataSet>
+  </DataSets>
+  <Width>16cm</Width>
+  <Body>
+    <ColumnSpacing>1cm</ColumnSpacing>
+    <Height>2.25cm</Height>
+  </Body>
+  <Language>es-ES</Language>
+  <PageFooter>
+    <PrintOnFirstPage>true</PrintOnFirstPage>
+    <ReportItems>
+      <Textbox Name="textbox6">
+        <rd:DefaultName>textbox6</rd:DefaultName>
+        <Top>0.125cm</Top>
+        <Width>8cm</Width>
+        <Style>
+          <Color>Navy</Color>
+          <FontSize>7pt</FontSize>
+          <TextAlign>Center</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Left>4cm</Left>
+        <Height>0.5cm</Height>
+        <Value>AlfaNet - Copryght 2007 - Archivar Ltda</Value>
+      </Textbox>
+    </ReportItems>
+    <Height>0.75cm</Height>
+    <PrintOnLastPage>true</PrintOnLastPage>
+  </PageFooter>
+  <TopMargin>2.5cm</TopMargin>
+  <PageHeight>29.7cm</PageHeight>
+</Report>

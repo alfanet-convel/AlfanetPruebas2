@@ -1,0 +1,10 @@
+﻿<?xml version="1.0"?>
+<!-- 
+  Visual Studio global web project settings.
+-->
+<VisualWebDeveloper>
+
+  <comReferences>
+    <reference Name="interop.wia" ID="{94A0E92D-43C0-494E-AC29-FD45948A5221}\1.0\0"/>
+  </comReferences>
+</VisualWebDeveloper>
