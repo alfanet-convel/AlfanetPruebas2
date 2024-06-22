@@ -924,4 +924,28 @@ public class AutoComplete : System.Web.Services.WebService {
         return (RegistroList.ToArray());
     }
 
+    [WebMethod]
+    public string[] GetSerieYDependenciaTxt(string prefixText)
+    {
+        //obtener dependencias
+        List<string> DependenciaList = new List<string>(20);
+        DependenciaBLL dependencias = new DependenciaBLL();
+        foreach (DataRow DataRowCurrent in dependencias.GetDependenciaByText(prefixText, "1"))
+        {
+            DependenciaList.Add(DataRowCurrent[0].ToString() + " | " + DataRowCurrent[1].ToString());
+        }
+        //return (DependenciaList.ToArray());
+
+        //obtener series
+        List<String> SerieList = new List<string>(20);
+        SerieBLL Series = new SerieBLL();
+        foreach (DataRow DataRowCurrent in Series.GetSerieByText(prefixText,"1"))
+        {
+            DependenciaList.Add(DataRowCurrent[0].ToString() + " | " + DataRowCurrent[1].ToString().ToUpper());
+        }
+        return (DependenciaList.ToArray());
+
+
+    }
+
 }

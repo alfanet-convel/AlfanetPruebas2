@@ -14,8 +14,11 @@ using DevExpress.Web.ASPxCallbackPanel;
 using System.Diagnostics;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Configuration;
+using evointernal;
 public partial class AlfanetWorkFlow_AlfanetWF_WorkFlow : System.Web.UI.Page
 {
+    string emailFrom = ConfigurationManager.AppSettings["EmailFrom"];
     string ModuloLog = "Workflow";
     string ConsecutivoCodigo = "9";
     string ConsecutivoCodigoErr = "4";
@@ -37,10 +40,23 @@ public partial class AlfanetWorkFlow_AlfanetWF_WorkFlow : System.Web.UI.Page
 
             if (!Page.IsPostBack)
         {
-            ////////////////////////////////////////////////
             MembershipUser user = Membership.GetUser();
             Object CodigoRuta = user.ProviderUserKey;
             String UserId = Convert.ToString(CodigoRuta);
+            double DiasExpired = 365;
+            int validar = 0;
+            DSValidarTableAdapters.Membership_validarTableAdapter vali = new DSValidarTableAdapters.Membership_validarTableAdapter();
+            DSValidar.Membership_validarDataTable val = new DSValidar.Membership_validarDataTable();
+            val = vali.GetData(UserId, validar);
+            string UserIdValidar = val.Rows[0].ItemArray[0].ToString().Trim();
+
+            if (user.LastPasswordChangedDate.AddDays(DiasExpired) < DateTime.Now || user.LastPasswordChangedDate == user.CreationDate || UserIdValidar == "0")
+            {
+                Response.Redirect("~/AlfanetInicio/InicioPassword/PasswordCambiar/PasswordCambiar.aspx");
+            }
+            else
+            {
+
             ////////////////////////////////////////////////
             Label5.Visible = false;
             Panel21.Visible = false;
@@ -118,6 +134,7 @@ public partial class AlfanetWorkFlow_AlfanetWF_WorkFlow : System.Web.UI.Page
                 DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter ConseLogs = new DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter();
                 ConseLogs.GetConsecutivos(ConsecutivoCodigo);
             }
+        }
         else
         {
             string controlName = Request.Params.Get("__EVENTTARGET");
@@ -396,6 +413,89 @@ public partial class AlfanetWorkFlow_AlfanetWF_WorkFlow : System.Web.UI.Page
         }
     }
 
+    protected void RadBtnLastFindbySerie_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+        int startVisibleIndex = ASPxGVDocRecExtVen.VisibleStartIndex;
+        // The number of visible rows displayed within the current page. 
+        int visibleRowCount = ASPxGVDocRecExtVen.GetCurrentPageRowValues("V.B").Count;
+        // The visible index of the last row within the current page. 
+        int endVisibleIndex = startVisibleIndex + visibleRowCount - 1;
+
+        bool atLeastOneRowSelected = false;
+        GridViewDataColumn colCarga = ASPxGVDocRecExtVen.Columns["Cargar a:"] as GridViewDataColumn;
+        GridViewDataColumn colVB = ASPxGVDocRecExtVen.Columns["V.B"] as GridViewDataColumn;
+        for (int i = startVisibleIndex; i <= endVisibleIndex; i++)
+        {
+            RadioButton rbSerie = (RadioButton)ASPxGVDocRecExtVen.FindRowCellTemplateControl(i, colCarga, "RadBtnLastFindbySerie");
+            var autoComplete = ASPxGVDocRecExtVen.FindRowCellTemplateControl(i, colCarga, "AutoCompleteExtender2") as AjaxControlToolkit.AutoCompleteExtender; ;
+
+            var cVB = (CheckBox)ASPxGVDocRecExtVen.FindRowCellTemplateControl(i, colVB, "SelectorDocumento");
+            if( rbSerie.Checked) {
+                autoComplete.ServiceMethod = "GetSerieByText";
+            }
+            else
+            {
+                autoComplete.ServiceMethod = "GetDependenciaByText";
+            }
+
+        }
+
+
+    }
+    protected void RadBtnLastFindbyDep_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+
+        int startVisibleIndex = ASPxGVDocRecExtVen.VisibleStartIndex;
+        // The number of visible rows displayed within the current page. 
+        int visibleRowCount = ASPxGVDocRecExtVen.GetCurrentPageRowValues("V.B").Count;
+        // The visible index of the last row within the current page. 
+        int endVisibleIndex = startVisibleIndex + visibleRowCount - 1;
+
+        bool atLeastOneRowSelected = false;
+        GridViewDataColumn colCarga = ASPxGVDocRecExtVen.Columns["Cargar a:"] as GridViewDataColumn;
+        GridViewDataColumn colVB = ASPxGVDocRecExtVen.Columns["V.B"] as GridViewDataColumn;
+        for (int i = startVisibleIndex; i <= endVisibleIndex; i++)
+        {
+            RadioButton rbDep = (RadioButton)ASPxGVDocRecExtVen.FindRowCellTemplateControl(i, colCarga, "RadBtnLastFindbyDep");
+            var autoComplete = ASPxGVDocRecExtVen.FindRowCellTemplateControl(i, colCarga, "AutoCompleteExtender2") as AjaxControlToolkit.AutoCompleteExtender; ;
+
+            var cVB = (CheckBox)ASPxGVDocRecExtVen.FindRowCellTemplateControl(i, colVB, "SelectorDocumento");
+            if (rbDep.Checked)
+            {
+                autoComplete.ServiceMethod = "GetDependenciaByText";
+            }
+            else
+            {
+                autoComplete.ServiceMethod = "GetDependenciaByText";
+            }
+
+        }
+
+
+    }
+    protected void RadioButtonList111_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (RadioButtonList1.SelectedValue == "1")
+        {
+            this.AutoCompleteExtender2.ServiceMethod = "GetSerieByText";
+            this.TxtProcedencia.Text = "";
+        }
+        else if (RadioButtonList1.SelectedValue == "0")
+        {
+            this.AutoCompleteExtender2.ServiceMethod = "GetDependenciaByText";
+            this.TxtProcedencia.Text = "";
+
+        }
+        else if (RadioButtonList1.SelectedValue == "2")
+        {
+            this.AutoCompleteExtender2.ServiceMethod = "GetDependenciaByText";
+            this.TxtProcedencia.Text = "";
+
+        }
+        this.TxtProcedencia.Focus();
+    }
     protected void RadioButtonList1_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (RadioButtonList1.SelectedValue == "1")
@@ -675,6 +775,9 @@ public partial class AlfanetWorkFlow_AlfanetWF_WorkFlow : System.Web.UI.Page
 
         TextBox TAcc =
             (TextBox)((ASPxGridView)sender).FindRowCellTemplateControl(GVR.VisibleIndex, colAccion, "TxtAccionDocExtVen");
+        
+        RadioButton rbSerie = 
+            (RadioButton)GV.FindRowCellTemplateControl(GVR.VisibleIndex, colCargar, "RadBtnLastFindbySerie");
 
         mCargar.Attributes.Add("onkeydown", "return Disable_Attr(event,getElementById('" + mCargar.ClientID + "'),getElementById('" + mHFCarga.ClientID + "'));");
 
@@ -1179,6 +1282,11 @@ public partial class AlfanetWorkFlow_AlfanetWF_WorkFlow : System.Web.UI.Page
 
 
                         HiddenField mHFCarga = ((HiddenField)GV.FindRowCellTemplateControl(i, colCarga, "HFCargar"));
+                        RadioButton rbSerie = (RadioButton)GV.FindRowCellTemplateControl(i, colCarga, "RadBtnLastFindbySerie");
+                        if (rbSerie.Checked)
+                        {
+                            mHFCarga.Value = "Serie";
+                        }
 
                         if (TxtDepDesitno.Text != "")
                         {
@@ -1372,7 +1480,7 @@ public partial class AlfanetWorkFlow_AlfanetWF_WorkFlow : System.Web.UI.Page
                                 DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "<BR>" +
                                 " Accion: " + mWFAccionCodigo + "<BR>"
                                 + " Detalle: " + Detalle + "<BR>"; 
-                                Correo.EnvioCorreo("alfanetpruebas@gmail.com", usuario.Email, "Tarea Nro" + " " + mNumeroDocumento, Body, true, "1");
+                                Correo.EnvioCorreo(emailFrom, usuario.Email, "Tarea Nro" + " " + mNumeroDocumento, Body, true, "1");
                             }
                         }
 

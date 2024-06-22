@@ -29,6 +29,7 @@
 
 <asp:Content runat="server" ContentPlaceHolderID="ContentPlaceHolder1" ID="ContentWf">
     <div id="global">
+        
         <script type="text/javascript">
             function PanelClickP3() {
 
@@ -996,11 +997,20 @@
                                                             <CellStyle HorizontalAlign="Center" Font-Size="8pt">
                                                             </CellStyle>
                                                         </dxwgv:GridViewDataTextColumn>
-
                                                         <dxwgv:GridViewDataTextColumn Width="139px" Caption="Cargar a:" VisibleIndex="10">
                                                             <DataItemTemplate>
+                                                                    <asp:label id="RadBtnLastFindbySerieLabel" runat="server" Font-Size="Smaller" ForeColor="ControlDarkDark" Font-Bold="True">Serie</asp:label><asp:RadioButton ID="RadBtnLastFindbySerie" runat="server" GroupName="RadBtnLastFindbyGroup1" AutoPostBack="true" OnCheckedChanged="RadBtnLastFindbySerie_SelectedIndexChanged"/>
+                                                                    <asp:label id="RadBtnLastFindbyDepLabel" runat="server" Font-Size="Smaller" ForeColor="ControlDarkDark" Font-Bold="True">Dependencia</asp:label><asp:RadioButton ID="RadBtnLastFindbyDep" runat="server" GroupName="RadBtnLastFindbyGroup1" AutoPostBack="true" OnCheckedChanged="RadBtnLastFindbyDep_SelectedIndexChanged" Checked />
+                                                                
+                                                                    <ajaxToolkit:AutoCompleteExtender id="AutoCompleteExtender2" runat="server" TargetControlID="TxtCargarDocVen" 
+                                                                    ServicePath="../../AutoComplete.asmx" ServiceMethod="GetSerieYDependenciaTxt" MinimumPrefixLength="-1" 
+                                                                    CompletionInterval="100" CompletionSetCount="12" FirstRowSelected="True" UseContextKey="True" 
+                                                                    CompletionListHighlightedItemCssClass="autocomplete_highlightedListItem" 
+                                                                    CompletionListItemCssClass="autocomplete_listItem " 
+                                                                    CompletionListCssClass="autocomplete_completionListElement"></ajaxToolkit:AutoCompleteExtender> 
                                                                 <asp:HiddenField ID="HFCargar" runat="server" __designer:wfdid="w1"></asp:HiddenField>
-                                                                <asp:TextBox ID="TxtCargarDocVen" runat="server" oncopy="return false" onpaste="return false" oncut="return false" Width="152px" Font-Size="9pt"
+                                                                <asp:TextBox ID="TxtCargarDocVen" runat="server" oncopy="return false" onpaste="return false" oncut="return false" 
+                                                                    Width="152px" Font-Size="9pt"
                                                                     Height="15px" Enabled="False" CssClass="TextBoxStyleGrid" __designer:wfdid="w2">
                                                                 </asp:TextBox>
                                                                 <asp:Panel Style="left: 213px; top: 132px" ID="PnlCargarDocVen" runat="server"
@@ -1059,13 +1069,7 @@
                                                                         </asp:TreeView>
                                                                     </div>
                                                                 </asp:Panel>
-                                                                <ajaxToolkit:AutoCompleteExtender ID="ACECargarDocEnv" runat="server" Enabled="True"
-                                                                    TargetControlID="TxtCargarDocVen" ServicePath="../../AutoComplete.asmx"
-                                                                    ServiceMethod="GetDependenciaByText" MinimumPrefixLength="0"
-                                                                    CompletionInterval="100" CompletionListCssClass="autocomplete_completionListElement"
-                                                                    CompletionListItemCssClass="autocomplete_listItem"
-                                                                    CompletionListHighlightedItemCssClass="autocomplete_highlightedListItem" __designer:wfdid="w7">
-                                                                </ajaxToolkit:AutoCompleteExtender>
+                                                                
                                                                 <ajaxToolkit:PopupControlExtender ID="PCECargarDocEnv" runat="server" TargetControlID="TxtCargarDocVen"
                                                                     PopupControlID="PnlCargarDocVen" __designer:wfdid="w8" Position="Center" OffsetY="25"
                                                                     OffsetX="-380">
@@ -1557,7 +1561,7 @@
                                                     </asp:Panel>
                                                     <ajaxToolkit:AutoCompleteExtender ID="ACECargarDocEnv" runat="server" Enabled="True"
                                                         TargetControlID="TxtCargarDocVen" ServicePath="../../AutoComplete.asmx"
-                                                        ServiceMethod="GetDependenciaByText" MinimumPrefixLength="0" CompletionInterval="100"
+                                                        ServiceMethod="GetSerieYDependenciaTxt" MinimumPrefixLength="0" CompletionInterval="100"
                                                         CompletionListCssClass="autocomplete_completionListElement"
                                                         CompletionListItemCssClass="autocomplete_listItem"
                                                         CompletionListHighlightedItemCssClass="autocomplete_highlightedListItem" __designer:wfdid="w15">
@@ -2052,7 +2056,7 @@
                                                     </asp:Panel>
                                                     <ajaxToolkit:AutoCompleteExtender ID="ACECargarDocEnv" runat="server" Enabled="True"
                                                         TargetControlID="TxtCargarDocVen" ServicePath="../../AutoComplete.asmx"
-                                                        ServiceMethod="GetDependenciaByText" MinimumPrefixLength="0" CompletionInterval="100"
+                                                        ServiceMethod="GetSerieYDependenciaTxt" MinimumPrefixLength="0" CompletionInterval="100"
                                                         CompletionListCssClass="autocomplete_completionListElement"
                                                         CompletionListItemCssClass="autocomplete_listItem"
                                                         CompletionListHighlightedItemCssClass="autocomplete_highlightedListItem"
