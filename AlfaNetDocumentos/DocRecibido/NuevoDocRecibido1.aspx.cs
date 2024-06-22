@@ -715,7 +715,7 @@ public partial class _NuevoDocRecibido1 : System.Web.UI.Page
                 System.Guid a = new Guid(rows[0].ItemArray[0].ToString().Trim());
                 usuario = Membership.GetUser(a);
                 string Body = "Tiene un nuevo Radicado Nro " + RadicadoCodigo + "<BR>" + " Fecha de Radicacion: " + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "<BR>" + "Procedencia: " + TxtProcedencia.Text.ToString() + "<BR>" + "Naturaleza: " + TxtNaturaleza.Text.ToString().Trim() + "<BR>" + "Aplicativo web Alfanet: " + "<BR>" + "http://localhost/AlfanetPruebas/AlfaNetInicio/InicioLogin/LoginIniciar.aspx" + "<BR>"; 
-                Correo.EnvioCorreo("convelsas@gmail.com", usuario.Email, "Radicado Nro" + " " + RadicadoCodigo, Body, true, "1");
+                Correo.EnvioCorreo("alfanetpruebas@gmail.com", usuario.Email, "Radicado Nro" + " " + RadicadoCodigo, Body, true, "1");
             }
         }
 

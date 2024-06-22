@@ -907,7 +907,7 @@ using System.DirectoryServices;
 				//SmtpClient SmtpServer = new SmtpClient("correo.mutualser.org");
                             //SmtpClient SmtpServer = new SmtpClient("mutualser-org.mail.protection.outlook.com");
                             //mail.From = new MailAddress("alfanett@mintic.gov.co", "Mintic", System.Text.Encoding.UTF8);
-                mail.From = new MailAddress("convelsas@gmail.com", "CONVEL S.A.S", System.Text.Encoding.UTF8);
+                mail.From = new MailAddress("alfanetpruebas@gmail.com", "CONVEL S.A.S", System.Text.Encoding.UTF8);
 				//mail.From = new MailAddress("alfanetpruebas@gmail.co", "MutualSER", System.Text.Encoding.UTF8);				
 				if (Regex.IsMatch(procedenciaMail, expresion))
                             {
@@ -928,7 +928,7 @@ using System.DirectoryServices;
                                     //SmtpServer.Credentials = new System.Net.NetworkCredential("notificacion@mintic.gov.co","Anonymous");
                                    //SmtpServer.Credentials = new System.Net.NetworkCredential("alfanett@mintic.gov.co", "Mintic2012");
 					//SmtpServer.Credentials = new System.Net.NetworkCredential("alfanetpruebas@gmail.com", "pollito1");
-					SmtpServer.Credentials = new System.Net.NetworkCredential("convelsas@gmail.com", "convelcarrera63b");
+					SmtpServer.Credentials = new System.Net.NetworkCredential("alfanetpruebas@gmail.com", "convelcarrera63b");
                                     //SmtpServer.UseDefaultCredentials = false;
 					SmtpServer.EnableSsl = false;
                     //SmtpServer.EnableSsl = true;
@@ -1121,7 +1121,7 @@ using System.DirectoryServices;
                             //SmtpServer.Credentials = new System.Net.NetworkCredential("notificacion@mintic.gov.co","Anonymous");
                             //SmtpServer.Credentials = new System.Net.NetworkCredential("alfanett@mintic.gov.co", "Mintic2012");
                             //SmtpServer.Credentials = new System.Net.NetworkCredential("alfanetpruebas@gmail.com", "pollito1");
-							SmtpServer.Credentials = new System.Net.NetworkCredential("convelsas@gmail.com", "convelcarrera63b");
+							SmtpServer.Credentials = new System.Net.NetworkCredential("alfanetpruebas@gmail.com", "convelcarrera63b");
                             //SmtpServer.UseDefaultCredentials = false;
                             SmtpServer.EnableSsl = false;
                             //SmtpServer.EnableSsl = true;
