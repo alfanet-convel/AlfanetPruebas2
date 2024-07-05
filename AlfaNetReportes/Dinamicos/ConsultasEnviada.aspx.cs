@@ -1,50 +1,18 @@
 ﻿using System;
-using System.Data;
-using System.Configuration;
-using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
-using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
-using DevExpress.Utils;
-using System.IO;
 using DevExpress.XtraCharts;
-using System.Drawing;
 using DevExpress.Web.ASPxPivotGrid;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.NetworkInformation;
+using System.IO;
+using DevExpress.Utils;
 
-public partial class AlfaNetReportes_Dinamicos_ConsultasEnviada : System.Web.UI.Page
+public partial class AlfanetReportes_Dinamicos_ConsultasEnviada : System.Web.UI.Page
 {
-    string ModuloLog = "REPORTES DINAMICOS";
-    string ConsecutivoCodigo = "10";
-
     protected void Page_Load(object sender, EventArgs e)
     {
-        IPHostEntry host;
-        string localIP = "";
-        host = Dns.GetHostEntry(Dns.GetHostName());
-        foreach (IPAddress ip in host.AddressList)
-        {
-            if (ip.AddressFamily.ToString() == "InterNetwork")
-            {
-                String IPAdd = string.Empty;
-                IPAdd = Request.ServerVariables["HTTP_X_FORWARDER_FOR"];
-                if (String.IsNullOrEmpty(IPAdd))
-                {
-                    IPAdd = Request.ServerVariables["REMOTE_ADDR"];
-                    localIP = IPAdd.ToString();
-                    Session["IP"] = localIP;
-                }
-            }
-        }
-	    Session["Nombrepc"] = host.HostName.ToString();
-        // System.Net.IPHostEntry hostEntry = Dns.GetHostEntry(Session["IP"].ToString());
-        // Dns.BeginGetHostEntry(Request.UserHostAddress, new AsyncCallback(GetHostNameCallBack), Request.UserHostAddress);
-
         WebChartControl1.SeriesDataMember = "Series";
         WebChartControl1.SeriesTemplate.ArgumentDataMember = "Arguments";
         WebChartControl1.SeriesTemplate.ValueDataMembers.AddRange(new string[] { "Values" });
@@ -58,7 +26,6 @@ public partial class AlfaNetReportes_Dinamicos_ConsultasEnviada : System.Web.UI.
 
             // Customize a title's appearance.
 
-
             // Add the titles to the chart.
             WebChartControl1.Titles.AddRange(new ChartTitle[] {
                 chartTitle1});
@@ -66,45 +33,9 @@ public partial class AlfaNetReportes_Dinamicos_ConsultasEnviada : System.Web.UI.
             {
                 this.ConsultaRegistros.OptionsChartDataSource.ChartDataVertical = !CheckBox1.Checked;
             }
-
-            //LOG ACCESO
-            string ActLogCod = "ACCESO";
-            DateTime Fechain = DateTime.Now;
-            //OBTENER CONSECUTIVO DE LOGS
-            DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter Consecutivos = new DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter();
-            DSGrupoSQL.ConsecutivoLogsDataTable Conse = new DSGrupoSQL.ConsecutivoLogsDataTable();
-            Conse = Consecutivos.GetConseActual(ConsecutivoCodigo);
-            DataRow[] fila = Conse.Select();
-            string x = fila[0].ItemArray[0].ToString();
-            string LOG = Convert.ToString(x);
-            int NumeroDocumento = Convert.ToInt32("0");
-            string GrupoCod = "";
-            string Datosini = "Acceso a Reportes Dinamicos";
-            string Datosfin1 = "Documentos Enviados.";
-            string username = Profile.GetProfile(Profile.UserName).UserName.ToString();
-            DSUsuarioTableAdapters.UserIdByUserNameTableAdapter objUsr = new DSUsuarioTableAdapters.UserIdByUserNameTableAdapter();
-            string UsrId = objUsr.Aspnet_UserIDByUserName(username).ToString();
-            DateTime FechaFin = DateTime.Now;
-            Int64 LogId = Convert.ToInt64(LOG);
-            string IP = Session["IP"].ToString();
-            string NombreEquipo = Session["Nombrepc"].ToString();
-            System.Web.HttpBrowserCapabilities nav = Request.Browser;
-            string Navegador = nav.Browser.ToString() + " Version: " + nav.Version.ToString();
-            //Insert de log acceso 
-            DSLogAlfaNetTableAdapters.LogAlfaNetTableAdapter Acceso = new DSLogAlfaNetTableAdapters.LogAlfaNetTableAdapter();
-            Acceso.InsertReportes(LogId, username, Fechain, ActLogCod, NumeroDocumento, GrupoCod, ModuloLog, Datosini, Datosfin1, IP, NombreEquipo, Navegador);
-            //Actualiza consecutivo
-            DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter ConseLogs = new DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter();
-            ConseLogs.GetConsecutivos(ConsecutivoCodigo);
         }
     }
-    // public void GetHostNameCallBack(IAsyncResult asyncResult)
-    // {
-        // string userHostAddress = (string)asyncResult.AsyncState;
-        // System.Net.IPHostEntry hostEntry = System.Net.Dns.EndGetHostEntry(asyncResult);
-        // Session["Nombrepc"] = hostEntry.HostName;
-        // // tenemos el nombre del equipo cliente en hostEntry.HostName
-    // }
+
     protected void ButtonOpen_Click(object sender, EventArgs e)
     {
         Export(false);
@@ -126,7 +57,6 @@ public partial class AlfaNetReportes_Dinamicos_ConsultasEnviada : System.Web.UI.
         String contentType = "";
         String fileName = "";
 
-        int caseSwitch = 1;
         switch (this.listExportFormat.SelectedIndex)
         {
             case 0:
@@ -161,7 +91,6 @@ public partial class AlfaNetReportes_Dinamicos_ConsultasEnviada : System.Web.UI.
                 break;
         }
         Byte[] buffer = stream.GetBuffer();
-        // Dim buffer() As Byte = stream.GetBuffer()
 
         String disposition;
         if (saveAs)
@@ -181,25 +110,21 @@ public partial class AlfaNetReportes_Dinamicos_ConsultasEnviada : System.Web.UI.
         Response.BinaryWrite(buffer);
         Response.End();
     }
+
     protected void CheckBox1_CheckedChanged(object sender, EventArgs e)
     {
         this.ConsultaRegistros.OptionsChartDataSource.ChartDataVertical = !CheckBox1.Checked;
     }
+
     protected void ConsultaRegistros_PreRender(object sender, EventArgs e)
     {
-       if (!IsPostBack)
+        if (!IsPostBack)
         {
             SetFilterESP(fieldNaturalezaNombre, ASPxComboBox1.SelectedItem.Value.ToString());
             SetFilterESP(fieldYearRegistro, "2011");
         }
-
-    
     }
-    //protected void CheckBox1_CheckedChanged(object sender, EventArgs e)
-    //{
-    //    this.ConsultaRadicados.OptionsChartDataSource.ChartDataVertical = !CheckBox1.Checked;
-    //}
-    
+
     void SetFilter(PivotGridField field, int selectNumber)
     {
         object[] values = field.GetUniqueValues();
@@ -209,6 +134,7 @@ public partial class AlfaNetReportes_Dinamicos_ConsultasEnviada : System.Web.UI.
                 includedValues.Add(values[i]);
         field.FilterValues.ValuesIncluded = includedValues.ToArray();
     }
+
     void SetFilterESP(PivotGridField field, String select)
     {
         object[] values = field.GetUniqueValues();
@@ -230,10 +156,12 @@ public partial class AlfaNetReportes_Dinamicos_ConsultasEnviada : System.Web.UI.
             field.FilterValues.ValuesIncluded = includedValues.ToArray();
         }
     }
+
     protected void ASPxComboBox1_DataBound(object sender, EventArgs e)
     {
         ASPxComboBox1.SelectedIndex = 0;
     }
+
     protected void ASPxComboBox1_SelectedIndexChanged(object sender, EventArgs e)
     {
         //if (ASPxComboBox1.SelectedItem.Value.ToString() == "TRA")
@@ -243,10 +171,12 @@ public partial class AlfaNetReportes_Dinamicos_ConsultasEnviada : System.Web.UI.
         SetFilterESP(fieldNaturalezaNombre, ASPxComboBox1.SelectedItem.Value.ToString());
         SetFilterESP(fieldYearRegistro, "2011");
     }
+
     protected void ASPxComboBox2_DataBound(object sender, EventArgs e)
     {
         ASPxComboBox2.SelectedIndex = ASPxComboBox2.Items.Count - 1;
     }
+
     protected void ASPxComboBox2_SelectedIndexChanged(object sender, EventArgs e)
     {
         this.AlfaWeb.SelectParameters["WFMovimientoFecha"].DefaultValue = "01/01/" + ASPxComboBox2.SelectedItem.Text;
@@ -254,42 +184,7 @@ public partial class AlfaNetReportes_Dinamicos_ConsultasEnviada : System.Web.UI.
         this.ConsultaRegistros.DataBind();
         SetFilterESP(fieldNaturalezaNombre, ASPxComboBox1.SelectedItem.Value.ToString());
         SetFilterESP(fieldYearRegistro, ASPxComboBox2.SelectedItem.Text);
-        WebChartControl1.Visible = true;
-        ConsultaRegistros.Visible = true;
         AlfaWeb.Dispose();
         ConsultaRegistros.Dispose();
-    }
-
-    protected void ImageButton2_Click(object sender, ImageClickEventArgs e)
-    {
-        //LOG CONSULTA
-        string ActLogCod = "CONSULTAR";
-        DateTime Fechain = DateTime.Now;
-        //OBTENER CONSECUTIVO DE LOGS
-        DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter Consecutivos = new DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter();
-        DSGrupoSQL.ConsecutivoLogsDataTable Conse = new DSGrupoSQL.ConsecutivoLogsDataTable();
-        Conse = Consecutivos.GetConseActual(ConsecutivoCodigo);
-        DataRow[] fila = Conse.Select();
-        string x = fila[0].ItemArray[0].ToString();
-        string LOG = Convert.ToString(x);
-        int NumeroDocumento = Convert.ToInt32("0");
-        string GrupoCod = "";
-        string Datosini = "Consulta Docs.Enviados entre fechas";//Fecha Inicial + Fecha Final
-        string Datosfin1 = RadDatePicker1.DbSelectedDate.ToString() + " | " + RadDatePicker2.DbSelectedDate.ToString();
-        string username = Profile.GetProfile(Profile.UserName).UserName.ToString();
-        DSUsuarioTableAdapters.UserIdByUserNameTableAdapter objUsr = new DSUsuarioTableAdapters.UserIdByUserNameTableAdapter();
-        string UsrId = objUsr.Aspnet_UserIDByUserName(username).ToString();
-        DateTime FechaFin = DateTime.Now;
-        Int64 LogId = Convert.ToInt64(LOG);
-        string IP = Session["IP"].ToString();
-        string NombreEquipo = Session["Nombrepc"].ToString();
-        System.Web.HttpBrowserCapabilities nav = Request.Browser;
-        string Navegador = nav.Browser.ToString() + " Version: " + nav.Version.ToString();
-        //Insert de log consultar
-        DSLogAlfaNetTableAdapters.LogAlfaNetTableAdapter Consultar = new DSLogAlfaNetTableAdapters.LogAlfaNetTableAdapter();
-        Consultar.InsertReportes(LogId, username, Fechain, ActLogCod, NumeroDocumento, GrupoCod, ModuloLog, Datosini, Datosfin1, IP, NombreEquipo, Navegador);
-        //actualiza consecutivo
-        DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter ConseLogs = new DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter();
-        ConseLogs.GetConsecutivos(ConsecutivoCodigo);
     }
 }
