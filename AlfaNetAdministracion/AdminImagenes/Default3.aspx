@@ -11,7 +11,7 @@
     <head>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/gridjs/dist/gridjs.umd.js"></script>
-        <script src="../../Scripts/jquery.blockUI.js"s></script>
+        <script src="../../Scripts/jquery.blockUI.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link href="~/AlfaNetStyle.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">

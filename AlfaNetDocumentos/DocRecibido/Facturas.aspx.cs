@@ -8,6 +8,7 @@ using System.Web.Security;
 using System.Data;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Configuration;
 
 public partial class AlfaNetDocumentos_DocRecibido_Facturas : System.Web.UI.Page
 {
@@ -17,6 +18,8 @@ public partial class AlfaNetDocumentos_DocRecibido_Facturas : System.Web.UI.Page
     string ConsecutivoCodigoErr = "4";
     string ActividadLogCodigoErr = "ERROR";
     string depCod = string.Empty;
+
+    string urlRadicacionMasiaSite = ConfigurationManager.AppSettings["UrlRadicacionMasiaSite"];
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -86,7 +89,7 @@ public partial class AlfaNetDocumentos_DocRecibido_Facturas : System.Web.UI.Page
             {
                 facturasFrame.Attributes.Remove("class");
                // facturasFrame.Attributes.Add("src", "https://192.168.202.192/RadicacionMasiaSite/RadicacionMasiva/RadicacionMasiva.aspx?dep=" + depCod);
-			   facturasFrame.Attributes.Add("src", "http://localhost/RadicacionMasiaSite/RadicacionMasiva/RadicacionMasiva.aspx?dep=" + depCod);
+			   facturasFrame.Attributes.Add("src", urlRadicacionMasiaSite + depCod);
 				// facturasFrame.Attributes.Add("src", "http://localhost/RadicacionMasiaSiteLatinco/RadicacionMasiva/RadicacionMasiva.aspx?dep=" + depCod);
 				// facturasFrame.Attributes.Add("src", "http://localhost:63962/RadicacionMasiva/RadicacionMasiva.aspx?dep=" + depCod);
             }

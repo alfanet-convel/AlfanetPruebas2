@@ -23,27 +23,78 @@ using System.IO;
 using DevExpress.Web;
 using DevExpress.Web.ASPxGridView;
 using DevExpress.Web.ASPxCallbackPanel;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Spreadsheet;
+using SpreadsheetLight;
+using System.ComponentModel;
+using System.Net;
+using System.Net.NetworkInformation;
+using DevExpress.Web.ASPxGridView;
 
 public partial class _DocEnviado : System.Web.UI.Page 
 {
+    string GrupoCod = "2";
+    string ModuloLog = "Consultas";
+    string ConsecutivoCodigo = "1";
+    string ConsecutivoCodigoErr = "4";
+    string ActividadLogCodigoErr = "ERROR";
+
     protected void Page_Load(object sender, EventArgs e)
-        {  
-         try
-            {    
-                if (!IsPostBack)
-                    {
-                        this.DDLOtros.SelectedValue = null;
-                        this.AccordionPane3.Visible = false;
-                        this.AccordionPane2.Visible = true;
-                    }
-                    else
-                    {
-             
-                    }
-                   
-            }
-         catch (Exception Error)
+    {
+        IPHostEntry host;
+        string localIP = "";
+        host = Dns.GetHostEntry(Dns.GetHostName());
+        foreach (IPAddress ip in host.AddressList)
+        {
+            if (ip.AddressFamily.ToString() == "InterNetwork")
             {
+                String IPAdd = string.Empty;
+                IPAdd = Request.ServerVariables["HTTP_X_FORWARDER_FOR"];
+                if (String.IsNullOrEmpty(IPAdd))
+                {
+                    IPAdd = Request.ServerVariables["REMOTE_ADDR"];
+                    localIP = IPAdd.ToString();
+                    Session["IP"] = localIP;
+                }
+            }
+        }
+        Session["Nombrepc"] = host.HostName.ToString();
+        // System.Net.IPHostEntry hostEntry = Dns.GetHostEntry(Session["IP"].ToString());
+        // Dns.BeginGetHostEntry(Request.UserHostAddress, new AsyncCallback(GetHostNameCallBack), Request.UserHostAddress);
+
+        try
+        {
+            if (!IsPostBack)
+            {
+                this.DDLOtros.SelectedValue = null;
+                this.AccordionPane3.Visible = false;
+                this.AccordionPane2.Visible = true;
+
+
+            }
+            else
+            {
+                DataTable dt = new DataTable();
+                List<string> dataColumnNames = new List<string>();
+                foreach (GridViewColumn item in ASPxGridView1.Columns)
+                {
+                    GridViewEditDataColumn dataColumn = item as GridViewEditDataColumn;
+                    if (dataColumn != null)
+                    {
+                        dt.Columns.Add(dataColumn.FieldName);
+                        dataColumnNames.Add(dataColumn.FieldName);
+                    }
+                }
+                for (int i = 0; i < ASPxGridView1.VisibleRowCount; i++)
+                {
+                    object[] rowValues = ASPxGridView1.GetRowValues(i, dataColumnNames.ToArray()) as object[];
+                    dt.Rows.Add(rowValues);
+                }
+            }
+
+        }
+        catch (Exception Error)
+        {
             this.ExceptionDetails.Text = "Problema" + Error;
             }
     }
@@ -335,6 +386,8 @@ public partial class _DocEnviado : System.Web.UI.Page
 
     protected void cmdBuscar_Click(object sender, EventArgs e)
     {
+        DateTime FechaInicio = DateTime.Now;
+        string ActLogCod = "CONSULTAR";
         ////////////////////////////////////////////////
         MembershipUser user = Membership.GetUser();
         Object CodigoRuta = user.ProviderUserKey;
@@ -405,6 +458,25 @@ public partial class _DocEnviado : System.Web.UI.Page
                 this.ASPxGridView1.DataSourceID = "ODSBuscar";
                 this.ReportViewer1.LocalReport.DataSources[0].DataSourceId = "";
                 this.ASPxGridView1.DataBind();
+                // Siguiente codigo para duplicar la información del Datasource  -- JUAN FIGUEREDO 22-Sept-2020
+                DataTable dt = new DataTable();
+                List<string> dataColumnNames = new List<string>();
+                foreach (GridViewColumn item in ASPxGridView1.Columns)
+                {
+                    GridViewEditDataColumn dataColumn = item as GridViewEditDataColumn;
+                    if (dataColumn != null)
+                    {
+                        dt.Columns.Add(dataColumn.FieldName);
+                        dataColumnNames.Add(dataColumn.FieldName);
+                    }
+                }
+                for (int i = 0; i < ASPxGridView1.VisibleRowCount; i++)
+                {
+                    object[] rowValues = ASPxGridView1.GetRowValues(i, dataColumnNames.ToArray()) as object[];
+                    dt.Rows.Add(rowValues);
+                }
+                //Session["DatosGrid"] = dt;
+                //Fin duplicado de informacion datasource, se utilizará posteriormente para Generar Excel en .Xlsx
             }
             else
             {
@@ -441,17 +513,39 @@ public partial class _DocEnviado : System.Web.UI.Page
             String Ip_cliente = Context.Request.UserHostAddress;
             //String Uri_OrigRef = Context.Request.UrlReferrer.OriginalString;
 
-            //log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+            log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
 
-            String Log = "7" + " " + this.TxtFechaInicial.Text + "?" + this.TxtFechaFinal.Text + "?" + this.TxtNroRegInicial.Text + "?" +
-                this.TxtNroRegFinal.Text + "?" + this.TxtNroRegFinal.Text + "?" + value_pipe(this.TxtBExpediente.Text) + "?" +
-                value_pipe(TxtBProcedencia.Text) + "?" + value_pipe(TxtBDestino.Text) + "?" + value_pipe(TxtBMedio.Text) + "?" + value_pipe(TxtBDestino.Text) + "?" + value_pipe(TxtBRemite.Text) + "?" +
-                value_pipe(TxtBSerie.Text) + "?" + Profile.GetProfile(Profile.UserName).CodigoDepUsuario.ToString() + "?" + value_pipe(TxtBNaturaleza.Text) + "?" + lotros;
+            String Log = Profile.GetProfile(Profile.UserName).CodigoDepUsuario.ToString() + " | " + Profile.UserName.ToString() + " | " + this.TxtFechaInicial.Text + " - " + this.TxtFechaFinal.Text + " | " + this.TxtNroRegInicial.Text + " | " +
+                this.TxtNroRegFinal.Text + " | " + this.TxtNroRegFinal.Text + " | " + value_pipe(this.TxtBExpediente.Text) + " | " +
+                value_pipe(TxtBProcedencia.Text) + " | " + value_pipe(TxtBDestino.Text) + " | " + value_pipe(TxtBMedio.Text) + " | " + value_pipe(TxtBDestino.Text) + " | " + value_pipe(TxtBRemite.Text) + " | " +
+                value_pipe(TxtBSerie.Text) + " | " + Profile.GetProfile(Profile.UserName).CodigoDepUsuario.ToString() + " | " + value_pipe(TxtBNaturaleza.Text) + " | " + lotros;
 
+            //OBTENER CONSECUTIVO LOG
+            DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter Consecutivos = new DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter();
+            DSGrupoSQL.ConsecutivoLogsDataTable Conse = new DSGrupoSQL.ConsecutivoLogsDataTable();
+            Conse = Consecutivos.GetConseActual(ConsecutivoCodigo);
+            DataRow[] fila = Conse.Select();
+            string x = fila[0].ItemArray[0].ToString();
+            string LOG = Convert.ToString(x);
+            string Datosfin = Log;
+            DateTime FechaFin = DateTime.Now;
+            Int64 LogId = Convert.ToInt64(LOG);
+            DSUsuarioTableAdapters.UserIdByUserNameTableAdapter objUsr = new DSUsuarioTableAdapters.UserIdByUserNameTableAdapter();
+            string UsrId = objUsr.Aspnet_UserIDByUserName(user.UserName).ToString();
+            string IP = Session["IP"].ToString();
+            string NombreEquipo = Session["Nombrepc"].ToString();
+            System.Web.HttpBrowserCapabilities nav = Request.Browser;
+            string Navegador = nav.Browser.ToString() + " Version: " + nav.Version.ToString();
+            //Insert de log buscar recibidos
+            DSLogAlfaNetTableAdapters.LogAlfaNetTableAdapter ConsultaRadicado = new DSLogAlfaNetTableAdapters.LogAlfaNetTableAdapter();
+            ConsultaRadicado.InsertConsulta(LogId, user.UserName, FechaInicio, ActLogCod, GrupoCod, ModuloLog, Datosfin, FechaFin, IP, NombreEquipo, Navegador);
+            //Se hace el consecutivo de Logs
+            DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter ConseLogs = new DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter();
+            ConseLogs.GetConsecutivos(ConsecutivoCodigo);
 
             //ILog logger = LogManager.GetLogger("primerEjemplo");
-            //logger.Fatal(Ip_cliente + " " + Log); 
+            logger.Fatal(Ip_cliente + " " + Log);
 
         }
         catch (Exception Error)

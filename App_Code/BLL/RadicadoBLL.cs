@@ -131,7 +131,7 @@ public class RadicadoBLL
     }
     // SELECT Consultas Radicado METHOD
     [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
-    public DSRadicado.Radicado_ConsultasRadicadoDataTable GetConsultasRadicado(String WFMovimientoFecha, String WFMovimientoFecha1, String RadicadoCodigo, String RadicadoCodigo1, String ExpedienteCodigo, String ProcedenciaCodigo, String ProcedenciaNombre, String MedioCodigo, String DependenciaCodDestino, String DependenciaNomDestino, String RadicadoDetalle, String RadicadoNumeroExterno, String RadicadoAnexo, String NaturalezaCodigo, String NaturalezaNombre, String DependenciaConsulta, string RadicadoGuia)
+    public DSRadicado.Radicado_ConsultasRadicadoDataTable GetConsultasRadicado(String WFMovimientoFecha, String WFMovimientoFecha1, String RadicadoFechaProcedencia, String RadicadoCodigo, String RadicadoCodigo1, String ExpedienteCodigo, String ProcedenciaCodigo, String ProcedenciaNombre, String MedioCodigo, String DependenciaCodDestino, String DependenciaNomDestino, String RadicadoDetalle, String RadicadoNumeroExterno, String RadicadoAnexo, String NaturalezaCodigo, String NaturalezaNombre, String DependenciaConsulta, string RadicadoGuia)
     {
         try
         {
@@ -271,9 +271,19 @@ public class RadicadoBLL
             {
                 WFMovimientoFecha1DateTime = Convert.ToDateTime(WFMovimientoFecha1 +" "+"23:59:59");
             }
-           // DSRadicado.Radicado_ConsultasRadicadoDataTable Con = new DSRadicado.Radicado_ConsultasRadicadoDataTable();
-           // Con = AdapterRadicadoConsultas.GetDataConsultasRadicado(WFMovimientoFechaDateTime, WFMovimientoFecha1DateTime, RadicadoCodigo, RadicadoCodigo1, ExpedienteCodigo, ProcedenciaCodigo, MedioCodigo, DependenciaCodDestino, RadicadoDetalle, RadicadoNumeroExterno, RadicadoAnexo, NaturalezaCodigo);
-            return AdapterRadicadoConsultas.GetDataConsultasRadicado(WFMovimientoFechaDateTime, WFMovimientoFecha1DateTime, RadicadoCodigo, RadicadoCodigo1, ExpedienteCodigo, ProcedenciaNombre, ProcedenciaCodigo, MedioCodigo, DependenciaCodDestino, DependenciaNomDestino, RadicadoDetalle, RadicadoNumeroExterno, RadicadoAnexo, NaturalezaCodigo, NaturalezaNombre, DependenciaConsulta, RadicadoGuia);
+            DateTime FechaProcedenciaDateTime;
+            if (RadicadoFechaProcedencia == "" || RadicadoFechaProcedencia == null)
+            {
+
+                FechaProcedenciaDateTime = Convert.ToDateTime("01/01/1753");
+            }
+            else
+            {
+                FechaProcedenciaDateTime = Convert.ToDateTime(RadicadoFechaProcedencia);
+            }
+            // DSRadicado.Radicado_ConsultasRadicadoDataTable Con = new DSRadicado.Radicado_ConsultasRadicadoDataTable();
+            // Con = AdapterRadicadoConsultas.GetDataConsultasRadicado(WFMovimientoFechaDateTime, WFMovimientoFecha1DateTime, RadicadoCodigo, RadicadoCodigo1, ExpedienteCodigo, ProcedenciaCodigo, MedioCodigo, DependenciaCodDestino, RadicadoDetalle, RadicadoNumeroExterno, RadicadoAnexo, NaturalezaCodigo);
+            return AdapterRadicadoConsultas.GetDataConsultasRadicado(WFMovimientoFechaDateTime, WFMovimientoFecha1DateTime, FechaProcedenciaDateTime, RadicadoCodigo, RadicadoCodigo1, ExpedienteCodigo, ProcedenciaNombre, ProcedenciaCodigo, MedioCodigo, DependenciaCodDestino, DependenciaNomDestino, RadicadoDetalle, RadicadoNumeroExterno, RadicadoAnexo, NaturalezaCodigo, NaturalezaNombre, DependenciaConsulta, RadicadoGuia);
         }
         catch (Exception e)
         {

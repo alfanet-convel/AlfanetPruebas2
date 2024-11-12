@@ -67,12 +67,14 @@ public partial class _ReArchviar : System.Web.UI.Page
         int _campos = this.DVDocumento.Rows.Count;
         if (_campos > 0)
         {
+            this.DVDocumento.Visible = true;
             this.DVDocumento.ChangeMode(DetailsViewMode.ReadOnly);
             this.Label3.Visible = true;
             this.TextBox3.Visible = true;
             this.TextBox3.Text = "";
             this.LinkButton1.Visible = true;
-        }
+            this.DVDocumento.DataBind();
+            }
         else
         {
             //this.DVDocumento.ChangeMode(DetailsViewMode.ReadOnly);
@@ -93,7 +95,7 @@ public partial class _ReArchviar : System.Web.UI.Page
         string x = fila[0].ItemArray[0].ToString();
         string LOG = Convert.ToString(x);
         int NumeroDocumento = Convert.ToInt32(TxtDocumento.Text);
-        string GrupoCod = "1";
+        string GrupoCod = this.RadBtnLstFindby.SelectedValue;
         string Datosini = "";
         Label DepCodigo = (Label)DVDocumento.FindControl("Label1");
         //DSWFMOVIMIENTOS
@@ -216,8 +218,7 @@ public partial class _ReArchviar : System.Web.UI.Page
     protected void LinkButton1_Click(object sender, EventArgs e)
     {
         string ActLogCod = "ACTUALIZAR";
-        if(RadBtnLstFindby.SelectedValue=="1")
-        {
+        
         int mNumeroDocumento = Convert.ToInt32(this.DVDocumento.DataKey[0].ToString());
         int mWFMovimientoPaso = Convert.ToInt32(this.DVDocumento.DataKey[1].ToString());
         String mDependenciaCodDestino = this.DVDocumento.DataKey[2].ToString();
@@ -226,7 +227,7 @@ public partial class _ReArchviar : System.Web.UI.Page
         String mWFMovimientoMultitarea = "0";
 
         int mWFMovimientoTipoini = Convert.ToInt32(this.DVDocumento.DataKey[3].ToString());
-        int mWFMovimientoTipo = 7;
+        int mWFMovimientoTipo = 3;
 
         DateTime mWFFechaMovimientoFin= DateTime.Now;
         String mWFMovimientoNotas = this.DVDocumento.DataKey[5].ToString();
@@ -283,6 +284,7 @@ public partial class _ReArchviar : System.Web.UI.Page
   string MensajeError = Convert.ToString(ErrorMessage);
   if (MensajeError == "")
   {
+      this.DVDocumento.Visible = false;
       this.Label3.Visible = false;
       this.TextBox3.Visible = false;
       this.LinkButton1.Visible = false;
@@ -312,7 +314,7 @@ public partial class _ReArchviar : System.Web.UI.Page
   string LOG = Convert.ToString(x);
   //Se Realiza el Log
   int NumeroDocumento = Convert.ToInt32(mNumeroDocumento);
-  string GrupoCod = "1";
+  string GrupoCod = mGrupoCodigo;
   string Datosini = Session["Archi"].ToString();
   Label DepCodigo = (Label)DVDocumento.FindControl("Label1");
   DSWorkFlowTableAdapters.WFMovimiento_ReadWFMovimientoArchivadoTableAdapter archi = new DSWorkFlowTableAdapters.WFMovimiento_ReadWFMovimientoArchivadoTableAdapter();
@@ -340,6 +342,6 @@ public partial class _ReArchviar : System.Web.UI.Page
   Accediendo.GetData(LogId, username, WFMovimientoFecha, ActLogCod, NumeroDocumento, GrupoCod, ModuloLog, Datosini, Datosfin1, FechaFin, IP, NombreEquipo, Navegador);
   DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter ConseLogs = new DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter();
   ConseLogs.GetConsecutivos(ConsecutivoCodigo);
-        }   
+          
     }
 }

@@ -1,4 +1,4 @@
-Ôªø<%@ Page Language="C#" MasterPageFile="~/MainMaster.master" AutoEventWireup="true"  CodeFile="MaestroDependencia.aspx.cs" Inherits="_MaestroDependencia" %>
+<%@ Page Language="C#" MasterPageFile="~/MainMaster.master" AutoEventWireup="true" ValidateRequest="false" CodeFile="MaestroDependencia.aspx.cs" Inherits="_MaestroDependencia" %>
 
 <%@ Register Assembly="DevExpress.Web.ASPxEditors.v9.1, Version=9.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
     Namespace="DevExpress.Web.ASPxEditors" TagPrefix="dxe" %>
@@ -116,7 +116,7 @@ function GetParentByTagName(parentTagName, childElementObj)
             <td style="width: 10%">
             </td>
             <td style="width: 80%">
-                <TABLE style="WIDTH: 100%"><TBODY><TR><TD style="WIDTH: 10%"></TD><TD style="WIDTH: 80%"><Ajax:Autocompleteextender id="AutoCompleteDependencia" runat="server" CompletionListHighlightedItemCssClass="autocomplete_highlightedListItem" CompletionListItemCssClass="autocomplete_listItem" CompletionListCssClass="autocomplete_completionListElement" completioninterval="100" completionsetcount="12" enablecaching="true" minimumprefixlength="-1" servicemethod="GetDependenciaByTextnull" servicepath="../../AutoComplete.asmx" targetcontrolid="TxtDependencia"></Ajax:Autocompleteextender> <Ajax:TextBoxWatermarkExtender id="TxtBoxWatermarkDependencia" watermarkText="Seleccione un Dependencia ..." runat="server" TargetControlID="TxtDependencia"></Ajax:TextBoxWatermarkExtender><asp:RequiredFieldValidator id="RequiredFieldValidator1" runat="server" ControlToValidate="TxtDependencia" ErrorMessage="RequiredFieldValidator" SetFocusOnError="True" ValidationGroup="ValGroup1">*</asp:RequiredFieldValidator><asp:Label id="LblDependencia" runat="server" Width="89px" ForeColor="White" Text="Dependencia" Font-Bold="True" CssClass="PropLabels"></asp:Label>
+                <TABLE style="WIDTH: 100%"><TBODY><TR><TD style="WIDTH: 10%"></TD><TD style="WIDTH: 80%"><Ajax:Autocompleteextender id="AutoCompleteDependencia" runat="server" CompletionListHighlightedItemCssClass="autocomplete_highlightedListItem" CompletionListItemCssClass="autocomplete_listItem" CompletionListCssClass="autocomplete_completionListElement" completioninterval="100" completionsetcount="12" enablecaching="true" minimumprefixlength="0" servicemethod="GetDependenciaByTextnull" servicepath="../../AutoComplete.asmx" targetcontrolid="TxtDependencia"></Ajax:Autocompleteextender> <Ajax:TextBoxWatermarkExtender id="TxtBoxWatermarkDependencia" watermarkText="Seleccione un Dependencia ..." runat="server" TargetControlID="TxtDependencia"></Ajax:TextBoxWatermarkExtender><asp:RequiredFieldValidator id="RequiredFieldValidator1" runat="server" ControlToValidate="TxtDependencia" ErrorMessage="RequiredFieldValidator" SetFocusOnError="True" ValidationGroup="ValGroup1">*</asp:RequiredFieldValidator><asp:Label id="LblDependencia" runat="server" Width="89px" ForeColor="White" Text="Dependencia" Font-Bold="True" CssClass="PropLabels"></asp:Label>
     <asp:TextBox id="TxtDependencia" runat="server" Width="350px" CssClass="TxtAutoComplete"></asp:TextBox> <asp:ImageButton id="ImgBtnFind" onclick="ImgBtnFind_Click" runat="server" ToolTip="Buscar" ImageUrl="~/AlfaNetImagen/ToolBar/zoom.png" ValidationGroup="ValGroup1"></asp:ImageButton> </TD><TD style="WIDTH: 10%"></TD></TR></TBODY></TABLE>
             </td>
             <td style="width: 10%">
@@ -142,8 +142,7 @@ function GetParentByTagName(parentTagName, childElementObj)
                             
 </HeaderTemplate>
 <ContentTemplate>
-<DIV align=center style="height: 310px">
-<asp:DetailsView style="VERTICAL-ALIGN: middle; TEXT-ALIGN: left" id="DVDependencia" runat="server" Width="100%" DataSourceID="DependenciaByIdDataSource" ForeColor="#333333" CssClass="DVStyle" Height="100%" OnDataBound="DVDependencia_DataBound" OnItemDeleted="DVDependencia_ItemDeleted" OnItemUpdated="DVDependencia_ItemUpdated" OnItemInserted="DVDependencia_ItemInserted" HorizontalAlign="Left" GridLines="None" DefaultMode="Insert" DataKeyNames="DependenciaCodigo" CellPadding="4" AutoGenerateRows="False">
+<DIV align=center style="height: 310px"><asp:DetailsView style="VERTICAL-ALIGN: middle; TEXT-ALIGN: left" id="DVDependencia" runat="server" Width="100%" DataSourceID="DependenciaByIdDataSource" ForeColor="#333333" CssClass="DVStyle" Height="100%" OnDataBound="DVDependencia_DataBound" OnItemDeleted="DVDependencia_ItemDeleted" OnItemUpdated="DVDependencia_ItemUpdated" OnItemInserted="DVDependencia_ItemInserted" HorizontalAlign="Left" GridLines="None" DefaultMode="Insert" DataKeyNames="DependenciaCodigo" CellPadding="4" AutoGenerateRows="False">
 <AlternatingRowStyle BackColor="White"></AlternatingRowStyle>
 
 <CommandRowStyle BackColor="#D1DDF1" Font-Bold="True"></CommandRowStyle>
@@ -177,12 +176,12 @@ function GetParentByTagName(parentTagName, childElementObj)
 <asp:TemplateField HeaderText="Dependencia Padre" SortExpression="DependenciaCodigoPadre"><EditItemTemplate>
 <asp:RadioButtonList style="TEXT-ALIGN: left" id="RbtnLstSelPadre" runat="server" CssClass="DVRbtnLstStyle" AutoPostBack="True" OnSelectedIndexChanged="RbtnLstSelPadre_SelectedIndexChanged"><asp:ListItem Selected="True" Value="0"> Es Dependencia ?</asp:ListItem>
 <asp:ListItem Value="1"> Es Sub Dependencia  ?</asp:ListItem>
-</asp:RadioButtonList> <asp:TextBox id="TextBox2" runat="server" Visible="False" Text='<%# Bind("DependenciaCodigoPadre") %>' CssClass="TxtMaestroPadre1"></asp:TextBox> <Ajax:AutoCompleteExtender id="AutoCompleteExtender1" runat="server" TargetControlID="TextBox2" minimumprefixlength="-1" ServiceMethod="GetDependenciaByText" ServicePath="../../AutoComplete.asmx"></Ajax:AutoCompleteExtender><Ajax:TextBoxWatermarkExtender id="TextBoxWatermarkExtender3" watermarkText="Seleccione un Dependencia Padre ..." runat="server" TargetControlID="TextBox2"></Ajax:TextBoxWatermarkExtender> 
+</asp:RadioButtonList> <asp:TextBox id="TextBox2" runat="server" Visible="False" Text='<%# Bind("DependenciaCodigoPadre") %>' CssClass="TxtMaestroPadre1"></asp:TextBox> <Ajax:AutoCompleteExtender id="AutoCompleteExtender1" runat="server" TargetControlID="TextBox2" MinimumPrefixLength="0" ServiceMethod="GetDependenciaByText" ServicePath="../../AutoComplete.asmx"></Ajax:AutoCompleteExtender><Ajax:TextBoxWatermarkExtender id="TextBoxWatermarkExtender3" watermarkText="Seleccione un Dependencia Padre ..." runat="server" TargetControlID="TextBox2"></Ajax:TextBoxWatermarkExtender> 
 </EditItemTemplate>
 <InsertItemTemplate>
 <asp:RadioButtonList style="TEXT-ALIGN: left" id="RbtnLstSelPadre" runat="server" CssClass="DVRbtnLstStyle" AutoPostBack="True"><asp:ListItem Selected="True" Value="0"> Es Dependencia ?</asp:ListItem>
 <asp:ListItem Value="1"> Es Sub Dependencia  ?</asp:ListItem>
-</asp:RadioButtonList> <asp:TextBox id="TextBox2" runat="server" Visible="False" Text='<%# Bind("DependenciaCodigoPadre") %>' CssClass="TxtMaestroPadre1"></asp:TextBox> <Ajax:AutoCompleteExtender id="AutoCompleteExtender1" runat="server" TargetControlID="TextBox2" minimumprefixlength="-1" ServiceMethod="GetDependenciaByText" ServicePath="../../AutoComplete.asmx"></Ajax:AutoCompleteExtender><Ajax:TextBoxWatermarkExtender id="TextBoxWatermarkExtender3" watermarkText="Seleccione un Dependencia Padre ..." runat="server" TargetControlID="TextBox2"></Ajax:TextBoxWatermarkExtender> 
+</asp:RadioButtonList> <asp:TextBox id="TextBox2" runat="server" Visible="False" Text='<%# Bind("DependenciaCodigoPadre") %>' CssClass="TxtMaestroPadre1"></asp:TextBox> <Ajax:AutoCompleteExtender id="AutoCompleteExtender1" runat="server" TargetControlID="TextBox2" MinimumPrefixLength="0" ServiceMethod="GetDependenciaByText" ServicePath="../../AutoComplete.asmx"></Ajax:AutoCompleteExtender><Ajax:TextBoxWatermarkExtender id="TextBoxWatermarkExtender3" watermarkText="Seleccione un Dependencia Padre ..." runat="server" TargetControlID="TextBox2"></Ajax:TextBoxWatermarkExtender> 
 </InsertItemTemplate>
 <ItemTemplate>
 <asp:Label id="Label3" runat="server" Text='<%# Bind("DependenciaNombrePadre") %>'></asp:Label> 
@@ -220,14 +219,7 @@ function GetParentByTagName(parentTagName, childElementObj)
 <asp:ImageButton id="ImgBtnInsertDependencia" onclick="ImgBtnInsertDependencia_Click" runat="server" ImageUrl="~/AlfaNetImagen/ToolBar/Accept.png" CausesValidation="True" Text="Insertar" CommandName="Insert" AlternateText="Aceptar"></asp:ImageButton> <asp:ImageButton id="ImageButton2" runat="server" ImageUrl="~/AlfaNetImagen/ToolBar/Cancel.png" CausesValidation="False" Text="Cancelar" CommandName="Cancel" AlternateText="Cancelar"></asp:ImageButton> 
 </InsertItemTemplate>
 <ItemTemplate>
-<asp:ImageButton id="ImageButton1" runat="server" ImageUrl="~/AlfaNetImagen/ToolBar/Edit.png" CausesValidation="False" Text="Editar" CommandName="Edit" AlternateText="Editar">
-</asp:ImageButton>
-&nbsp; 
-<asp:ImageButton id="ImageButton2" onclick="ImgBtnNewDependencia_Click" runat="server" ImageUrl="~/AlfaNetImagen/ToolBar/Add.png" CausesValidation="False" Text="Nuevo" CommandName="New" AlternateText="Adicionar">
-</asp:ImageButton>&nbsp; 
-<asp:ImageButton id="ImageButton3" runat="server" ImageUrl="~/AlfaNetImagen/ToolBar/Delete.png" CausesValidation="False" Text="Eliminar" OnClick="ImageButton3_Click" AlternateText="Eliminar">
-</asp:ImageButton>&nbsp; 
-
+<asp:ImageButton id="ImageButton1" runat="server" ImageUrl="~/AlfaNetImagen/ToolBar/Edit.png" CausesValidation="False" Text="Editar" CommandName="Edit" AlternateText="Editar"></asp:ImageButton>&nbsp; <asp:ImageButton id="ImageButton2" onclick="ImgBtnNewDependencia_Click" runat="server" ImageUrl="~/AlfaNetImagen/ToolBar/Add.png" CausesValidation="False" Text="Nuevo" CommandName="New" AlternateText="Adicionar"></asp:ImageButton>&nbsp; 
 </ItemTemplate>
 </asp:TemplateField>
 </Fields>
@@ -247,19 +239,21 @@ function GetParentByTagName(parentTagName, childElementObj)
 </HeaderTemplate>
 <ContentTemplate>
 
-    <Ajax:TabContainer ID="TabPermisos" runat="server" Width="100%" BackColor="White" OnActiveTabChanged="TPermisos_OnActiveTabChanged" AutoPostBack="true">
+    <Ajax:TabContainer ID="TabPermisos" runat="server" Width="100%" 
+        BackColor="White" OnActiveTabChanged="TPermisos_OnActiveTabChanged" 
+        AutoPostBack="True">
     <Ajax:TabPanel ID="TabDep" runat="server">
     <HeaderTemplate>
     Dependencias
     </HeaderTemplate>
         <ContentTemplate>
-    <STRONG>Esta dependencia podr√° consultar:<BR /></STRONG><TABLE><TBODY><TR><TD><BR /><IMG src="../../AlfaNetImagen/ToolBar/lock.png" /><BR /><BR /><IMG src="../../AlfaNetImagen/ToolBar/key.png" /><BR /></TD><TD style="WIDTH: 16px"><BR /><asp:RadioButtonList style="TEXT-ALIGN: left" id="RbtnLstPermiso" runat="server" Width="370px" ForeColor="Black" Font-Bold="False" CssClass="DVRbtnLstStyle" OnSelectedIndexChanged="RbtnLstPermiso_SelectedIndexChanged" AutoPostBack="True" Height="52px" Enabled="False"><asp:ListItem Selected="True" Value="1">Todas</asp:ListItem>
+    <STRONG>Esta dependencia podr· consultar:<BR /></STRONG><TABLE><TBODY><TR><TD>
+        <BR /><IMG src="../../AlfaNetImagen/ToolBar/lock.png" /><BR /><BR /><IMG src="../../AlfaNetImagen/ToolBar/key.png" /><BR /></TD><TD style="WIDTH: 16px"><BR /><asp:RadioButtonList style="TEXT-ALIGN: left" id="RbtnLstPermiso" runat="server" Width="370px" ForeColor="Black" Font-Bold="False" CssClass="DVRbtnLstStyle" OnSelectedIndexChanged="RbtnLstPermiso_SelectedIndexChanged" AutoPostBack="True" Height="52px" Enabled="False"><asp:ListItem Selected="True" Value="1">Todas</asp:ListItem>
 <asp:ListItem Value="0">Ninguna</asp:ListItem>
 </asp:RadioButtonList></TD></TR></TBODY></TABLE>
     <BR />
             <strong>Excepto las siguientes dependencias:<BR />
-            </strong>
-    <table style="width: 100%; font-weight: bold;">
+            &nbsp;</strong><table style="width: 100%; font-weight: bold;">
     <tr>
                     <td style="width: 40%; vertical-align: top; margin-top: 1px; margin-left: 1px;">
                         <asp:Panel ID="Panel2" runat="server" Height="300px" ScrollBars="Both" BorderColor="Silver" BorderStyle="Inset" BorderWidth="1px">
@@ -375,15 +369,14 @@ function GetParentByTagName(parentTagName, childElementObj)
     Expedientes
     </HeaderTemplate>
     <ContentTemplate>
-     <STRONG>Esta dependencia podr√° consultar:<BR /></STRONG><TABLE><TBODY><TR><TD><BR /><IMG src="../../AlfaNetImagen/ToolBar/lock.png" /><BR /><BR /><IMG src="../../AlfaNetImagen/ToolBar/key.png" /><BR /></TD><TD style="WIDTH: 16px"><BR />
+     <STRONG>Esta dependencia podr· consultar:<BR /></STRONG><TABLE><TBODY><TR><TD><BR /><IMG src="../../AlfaNetImagen/ToolBar/lock.png" /><BR /><BR /><IMG src="../../AlfaNetImagen/ToolBar/key.png" /><BR /></TD><TD style="WIDTH: 16px"><BR />
      <asp:RadioButtonList style="TEXT-ALIGN: left" id="RbtnDepPermiso" runat="server" Width="370px" ForeColor="Black" Font-Bold="False" CssClass="DVRbtnLstStyle" OnSelectedIndexChanged="RbtnDepPermiso_SelectedIndexChanged" AutoPostBack="True" Height="52px" Enabled="False">
      <asp:ListItem Selected="True" Value="1">Todas</asp:ListItem>
      <asp:ListItem Value="0">Ninguna</asp:ListItem>
      </asp:RadioButtonList></TD></TR></TBODY></TABLE>
     <BR />
             <strong>Excepto las siguientes dependencias:<BR />
-            </strong>
-    <table style="width: 100%; font-weight: bold;">
+            &nbsp;</strong><table style="width: 100%; font-weight: bold;">
     <tr>
                     <td style="width: 40%; vertical-align: top; margin-top: 1px; margin-left: 1px;">
                         <asp:Panel ID="Panel3" runat="server" Height="300px" ScrollBars="Both" BorderColor="Silver" BorderStyle="Inset" BorderWidth="1px">

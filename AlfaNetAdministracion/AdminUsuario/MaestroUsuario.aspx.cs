@@ -90,11 +90,11 @@ public partial class _MaestroUsuario : System.Web.UI.Page
         this.TxtEmail.Enabled = true;
         this.AvailableRoles.Enabled = true;
         this.TxtDependencia.Enabled = true;
-
+        
         // this.Label7.Visible = true;
         // this.TxtOldPassword.Text = memberuser.GetPassword();
         // this.TxtOldPassword.Visible = true;
-
+        
         this.ImgBtnAdd.Visible = false;
         this.ImgBtnEdit.Visible = false;
         this.ImgBtnDelete.Visible = false;
@@ -102,9 +102,9 @@ public partial class _MaestroUsuario : System.Web.UI.Page
         this.ImgBtnCancelInsert.Visible = false;
         this.ImgBtnAcceptEdit.Visible = true;
         this.ImgBtnCancelEdit.Visible = true;
-        this.TxtPassword.TextMode = TextBoxMode.Password;
+                this.TxtPassword.TextMode = TextBoxMode.Password;
         //this.TxtPassword.Text = null;
-        this.TxtConfirmPassword.TextMode = TextBoxMode.Password;
+                this.TxtConfirmPassword.TextMode = TextBoxMode.Password;
         //this.TxtConfirmPassword.Text = null;
         this.ImgBtnFind.Enabled = false;
         this.CheckBox1.Enabled = true;

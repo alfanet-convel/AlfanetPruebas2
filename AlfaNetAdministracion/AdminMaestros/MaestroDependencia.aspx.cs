@@ -357,7 +357,6 @@ public partial class _MaestroDependencia : System.Web.UI.Page
             this.LblMessageBox.Text = "Ocurrio un problema al tratar de adicionar el registro. ";
             Exception inner = e.Exception.InnerException;
             this.LblMessageBox.Text += ErrorHandled.FindError(inner);
-            //this.LblMessageBox.Text += inner.Message.ToString();
             this.LblMessageBox.Text += e.Exception.Message.ToString();
             this.MPEMensaje.Show();
 
@@ -395,56 +394,6 @@ public partial class _MaestroDependencia : System.Web.UI.Page
         }
         else if (e.Exception == null)
         {
-            TextBox text = (TextBox)DVDependencia.FindControl("TextBox1");
-
-            string dependencia = TxtDependencia.Text;
-
-            if (dependencia.Contains(" | "))
-            {
-
-                dependencia = dependencia.Remove(dependencia.IndexOf(" | "));
-
-                //prof.CodigoDepUsuario = DependenciaCod;
-
-            }
-
-            //else
-
-            //{
-
-            //    dependencia = null;
-
-            //    //prof.CodigoDepUsuario = ND[0].ToString().TrimEnd();
-
-            //}
-
-            DSUsuarioTableAdapters.Usuariosxdependencia1TableAdapter DSUXDependencia = new DSUsuarioTableAdapters.Usuariosxdependencia1TableAdapter();
-
-            DSUsuario.Usuariosxdependencia1DataTable DSUsuarioDT = new DSUsuario.Usuariosxdependencia1DataTable();
-
-            //DataSet ds = new DataSet();
-
-            DSUsuarioDT = DSUXDependencia.GetDataByUsuarioxDependencia(dependencia);
-
-            //ds=(DataSet)DSUXDependencia.GetDataByUsuarioxDependencia(dependencia);
-
-
-
-            foreach (DataRow item in DSUsuarioDT.Rows)
-            {
-
-                ProfileCommon prof = Profile.GetProfile(DSUsuarioDT.Rows[0]["username"].ToString());
-
-                String[] ND = this.TxtDependencia.Text.Split('|');
-
-                prof.CodigoDepUsuario = ND[0].ToString().TrimEnd();
-
-                prof.NombreDepUsuario = text.Text.Trim();
-
-                prof.Save();
-
-            }
-
             this.DVDependencia.DataBind();
             //this.GVDependenciaPermiso.DataBind();
             this.LblMessageBox.Text = "Registro Editado";
@@ -1624,11 +1573,6 @@ public partial class _MaestroDependencia : System.Web.UI.Page
         ListBox2_Load();
         TreeVExpediente_Load();
 
-    }
-    protected void ImageButton3_Click(object sender, EventArgs e)
-    {
-        this.Label7.Text = "¿Va a eliminar la Dependencia seleccionada, Está seguro?";
-        this.MPEPregunta.Show();
     }
 }
 

@@ -651,11 +651,7 @@
 
                                                                         <Settings AutoFilterCondition="Contains"></Settings>
                                                                     </dxwgv:GridViewDataTextColumn>
-                                                                    <dxwgv:GridViewDataTextColumn FieldName="ProcedenciaNUI" Caption="ProcedenciaNUI" VisibleIndex="5" CellStyle-CssClass="ColumnaOculta">
-                                                                        <HeaderStyle CssClass="ColumnaOculta" />
-                                                                        <CellStyle CssClass="ColumnaOculta"></CellStyle>
-                                                                        <Settings AutoFilterCondition="Contains"></Settings>
-                                                                    </dxwgv:GridViewDataTextColumn>
+
                                                                     <dxwgv:GridViewDataTextColumn FieldName="ProcedenciaNombre" Caption="PROCEDENCIA" VisibleIndex="6">
                                                                         <Settings AutoFilterCondition="Contains"></Settings>
                                                                     </dxwgv:GridViewDataTextColumn>
@@ -678,11 +674,11 @@
                                                                             <asp:HyperLink ID="HprLnkExp" runat="server" Text="Expediente" CssClass="LinKBtnStyleBig" Target="_blank" Visible="false"></asp:HyperLink>
                                                                             <asp:HiddenField ID="HFExp" runat="server" Value='<%# Eval("ExpedienteCodigo") %>'></asp:HiddenField>
                                                                             <%--<asp:HiddenField ID="HFGrupo" runat="server" Value='<%# Eval("GrupoCodigo") %>'></asp:HiddenField>--%>
-                                                                            <span id="Span1" style="display: none;"><%# Eval("RadicadoCodigo")%></span>
-                                                                            <span id="Span2" style="display: none;"><%# Eval("FechaRadicacion")%></span>
-                                                                            <span id="Span3" style="display: none;"><%# Eval("ProcedenciaNombre")%></span>
-                                                                            <span id="Span4" style="display: none;"><%# Eval("Detalle")%></span>
-                                                                            <span id="Span5" style="display: none;"><%# Eval("Facc_factura")%></span>
+                                                                            <span id="RadicadoCodigo" style="display: none;"><%# Eval("RadicadoCodigo")%></span>
+                                                                            <span id="FechaRadicacion" style="display: none;"><%# Eval("FechaRadicacion")%></span>
+                                                                            <span id="ProcedenciaNombre" style="display: none;"><%# Eval("ProcedenciaNombre")%></span>
+                                                                            <span id="Detalle" style="display: none;"><%# Eval("Detalle")%></span>
+                                                                            <span id="Facc_Factura" style="display: none;"><%# Eval("Facc_factura")%></span>
                                                                             <span id="Span9" style="display: none;"><%# Eval("ExpedienteNombre")%></span>
                                                                             <span id="Span11" style="display: none;"><%# Eval("Facn_numero")%></span>
                                                                             <span id="Span12" style="display: none;"><%# Eval("Facn_recibo")%></span>

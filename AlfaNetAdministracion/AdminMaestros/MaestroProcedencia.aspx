@@ -253,7 +253,8 @@
 </asp:RadioButtonList> </TD></TR></TBODY></TABLE><STRONG></STRONG>
 </ContentTemplate>
 </Ajax:TabPanel>
-</Ajax:TabContainer> <Ajax:ModalPopupExtender id="MPEMensaje" runat="server" TargetControlID="LblProcedencia" PopupControlID="PnlMensaje" BackgroundCssClass="MessageStyle"></Ajax:ModalPopupExtender> <asp:Panel style="DISPLAY: none" id="PnlMensaje" runat="server" Width="125px" Height="63px"><BR /><TABLE width=275 border=0><TBODY><TR><TD style="BACKGROUND-COLOR: activecaption" align=center><asp:Label id="Label5" runat="server" Width="120px" ForeColor="White" Text="Mensaje" Font-Size="14pt" Font-Bold="False"></asp:Label> <asp:ImageButton style="VERTICAL-ALIGN: top" id="btnCerrar" runat="server" ImageUrl="~/AlfaNetImagen/ToolBar/cross.png" ImageAlign="Right" CausesValidation="False"></asp:ImageButton></TD></TR><TR><TD style="HEIGHT: 45px; BACKGROUND-COLOR: highlighttext" align=center colSpan=2><IMG src="../../AlfaNetImagen/ToolBar/error.png" /> <asp:Label id="LblMessageBox" runat="server" ForeColor="Red" Font-Size="12pt"></asp:Label></TD></TR></TBODY></TABLE></asp:Panel> 
+</Ajax:TabContainer> <Ajax:ModalPopupExtender id="MPEMensaje" runat="server" TargetControlID="LblProcedencia" PopupControlID="PnlMensaje" BackgroundCssClass="MessageStyle"></Ajax:ModalPopupExtender> <asp:Panel style="DISPLAY: none" id="PnlMensaje" runat="server" Width="125px" Height="63px"><BR /><TABLE width=275 border=0><TBODY><TR><TD style="BACKGROUND-COLOR: activecaption" align=center><asp:Label id="Label5" runat="server" Width="120px" ForeColor="White" Text="Mensaje" Font-Size="14pt" Font-Bold="False"></asp:Label> <asp:ImageButton style="VERTICAL-ALIGN: top" id="btnCerrar" runat="server" ImageUrl="~/AlfaNetImagen/ToolBar/cross.png" ImageAlign="Right" CausesValidation="False"></asp:ImageButton></TD></TR><TR><TD style="HEIGHT: 45px; BACKGROUND-COLOR: highlighttext" align=center colSpan=2><IMG 
+    ="../../AlfaNetImagen/ToolBar/error.png" /> <asp:Label id="LblMessageBox" runat="server" ForeColor="Red" Font-Size="12pt"></asp:Label></TD></TR></TBODY></TABLE></asp:Panel> 
         <br />
         <asp:Panel ID="Panel1" runat="server" Height="63px" Style="display: none" Width="125px">
             <br />
@@ -295,7 +296,7 @@
         </Ajax:ConfirmButtonExtender>
         <asp:UpdateProgress id="UpdateProgress1" runat="server">
                         <progresstemplate>
-<IMG style="VERTICAL-ALIGN: middle; TEXT-ALIGN: center" src="../../AlfaNetImagen/Icono/Load.gif"  />
+<IMG style="VERTICAL-ALIGN: middle; TEXT-ALIGN: center" src="../../AlfaNetImagen/WFImagen/Load.gif"  />
 </progresstemplate>
                     </asp:UpdateProgress> 
 </ContentTemplate>

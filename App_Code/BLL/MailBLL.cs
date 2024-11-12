@@ -47,11 +47,11 @@ public class MailBLL
             if (_Smtp == null)
             {
                 _Smtp = new System.Net.Mail.SmtpClient();
-                //_Smtp.Host = "192.168.254.2";
+                //_Smtp.Host = "192.168.50.3";
                 _Smtp.Host = "smtp.gmail.com";
                 _Smtp.EnableSsl = true;
                 _Smtp.Port = 587;
-                _Smtp.Credentials = new System.Net.NetworkCredential("convelsas@gmail.com", "convelcarrera63b");
+                _Smtp.Credentials = new System.Net.NetworkCredential("talentohumano@convel.co", "thconvel2021");
                 //  _Smtp.UseDefaultCredentials = false;
 			
             }

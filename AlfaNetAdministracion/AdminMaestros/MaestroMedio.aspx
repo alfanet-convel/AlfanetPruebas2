@@ -185,7 +185,7 @@
         <br />
         <asp:UpdateProgress id="UpdateProgress1" runat="server">
                         <progresstemplate>
-<IMG style="VERTICAL-ALIGN: middle; TEXT-ALIGN: center" src="../../AlfaNetImagen/Icono/Load.gif"  />
+<IMG style="VERTICAL-ALIGN: middle; TEXT-ALIGN: center" src="../../AlfaNetImagen/WFImagen/Load.gif"  />
 </progresstemplate>
                     </asp:UpdateProgress> 
 </ContentTemplate>

@@ -36,6 +36,7 @@ style="VERTICAL-ALIGN: middle; TEXT-ALIGN: center" colSpan=2><asp:RequiredFieldV
 style="VERTICAL-ALIGN: middle; TEXT-ALIGN: center" colSpan=2><STRONG><EM><SPAN 
 style="FONT-FAMILY: Poor Richard"></SPAN></EM></STRONG><asp:Label id="LblFindBy" runat="server" Width="109px" ForeColor="RoyalBlue" Text="Buscar Por Grupo: " Font-Size="Smaller" Font-Bold="True" BorderStyle="None"></asp:Label><asp:RadioButtonList id="RadBtnLstFindby" runat="server" Width="106px" ForeColor="RoyalBlue" Font-Size="Smaller" OnSelectedIndexChanged="RadBtnLstFindby_SelectedIndexChanged" RepeatDirection="Horizontal" Font-Italic="False" AutoPostBack="True">
                                 <asp:ListItem Selected="True" Value="1">Radicados</asp:ListItem>
+                                <asp:ListItem Value="2">Registros</asp:ListItem>
                             </asp:RadioButtonList></TD>
     <td colspan="1" style="vertical-align: middle; width: 10%; text-align: center">
     </td>
@@ -125,8 +126,8 @@ style="VERTICAL-ALIGN: middle; TEXT-ALIGN: center" colSpan=2><asp:RequiredFieldV
                 </TR><TR>
                                 <td style="width: 10%">
                                 </td>
-                                <TD style="WIDTH: 57px; HEIGHT: 21px"> &nbsp;&nbsp;
-                                    <asp:LinkButton id="LinkButton1" onclick="LinkButton1_Click" runat="server" Width="96px" Visible="False" ValidationGroup="ValGroup" CssClass="lnkbtn">Re-Archivar</asp:LinkButton></TD><TD 
+                                <TD style="WIDTH: 100%; padding:10px"> &nbsp;&nbsp;
+                                    <asp:LinkButton id="LinkButton1" onclick="LinkButton1_Click" runat="server" Visible="False" ValidationGroup="ValGroup" CssClass="lnkbtn">Re-Archivar</asp:LinkButton></TD><TD 
 style="VERTICAL-ALIGN: middle; HEIGHT: 21px; TEXT-ALIGN: center"></TD>
                                 <td style="vertical-align: middle; width: 10%; text-align: center">
                                 </td>

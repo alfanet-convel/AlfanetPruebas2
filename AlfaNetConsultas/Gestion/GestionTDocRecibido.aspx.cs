@@ -763,114 +763,59 @@ public partial class _GestionTDocRecibido : System.Web.UI.Page
         String contentType = "";
         String fileName = "";
 
-        try
+        
+        //this.ASPxGridViewExporter1.OptionsPrint.PrintHeadersOnEveryPage = true;
+        //this.ASPxGridViewExporter1.OptionsPrint.PrintFilterHeaders = DefaultBoolean.True;
+        //this.ASPxGridViewExporter1.OptionsPrint.PrintColumnHeaders = DefaultBoolean.True;
+        //this.ASPxGridViewExporter1.OptionsPrint.PrintRowHeaders = DefaultBoolean.True;
+        //this.ASPxGridViewExporter1.OptionsPrint.PrintDataHeaders = DefaultBoolean.True;
+        //this.ASPxGridViewExporter1.ReportHeader.
+
+        int caseSwitch = 1;
+        switch (this.listExportFormat.SelectedIndex)
         {
-            int caseSwitch = 1;
-            if (this.listExportFormat.SelectedIndex != 1)
-            {
-                switch (this.listExportFormat.SelectedIndex)
-                {
-                    case 0:
-                        contentType = "application/pdf";
-                        fileName = "PivotGrid.pdf";
-                        this.ASPxGridViewExporter1.WritePdf(stream);
-                        break;
-                    case 1:
-                        contentType = "application/ms-excel";
-                        fileName = "PivotGrid.xls";
-                        this.ASPxGridViewExporter1.WriteXls(stream);
-                        break;
-                    case 2:
-                        contentType = "text/enriched";
-                        fileName = "PivotGrid.rtf";
-                        this.ASPxGridViewExporter1.WriteRtf(stream);
-                        break;
-                    case 3:
-                        contentType = "text/plain";
-                        fileName = "PivotGrid.txt";
-                        this.ASPxGridViewExporter1.WriteCsv(stream);
-                        break;
-                }
-                Byte[] buffer = stream.GetBuffer();
-                // Dim buffer() As Byte = stream.GetBuffer()
-
-                String disposition;
-                if (saveAs)
-                {
-                    disposition = "attachment";
-                }
-                else
-                {
-                    disposition = "inline";
-                }
-                if (listExportFormat.SelectedIndex != -1)
-                {
-                    Response.Clear();
-                    Response.Buffer = false;
-                    Response.AppendHeader("Content-Type", contentType);
-                    Response.AppendHeader("Content-Transfer-Encoding", "binary");
-                    Response.AppendHeader("Content-Disposition", disposition + "; filename=" + fileName);
-                    Response.BinaryWrite(buffer);
-                    Response.End();
-                }
-            }
-            else  //   Generar Excel en formato .xlsx  -- JUAN FIGUEREDO 22-SEP-2020
-            {
-                string NombreArchivo = "ReporteGestionTareas" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss") + ".xlsx";
-                string name = AppDomain.CurrentDomain.BaseDirectory + "Excel.xlsx";
-                SLDocument osldocument = new SLDocument();
-
-                SLStyle style = new SLStyle();
-                style.Font.FontSize = 12;
-                style.Font.Bold = true;
-                SLStyle styleCOL = new SLStyle();
-
-                //DataTable dt = new DataTable();
-                //dt = (DataTable)Session["DatosGrid"];
-                DataTable dt = new DataTable();
-                List<string> dataColumnNames = new List<string>();
-                foreach (GridViewColumn item in ASPxGridView1.Columns)
-                {
-                    GridViewEditDataColumn dataColumn = item as GridViewEditDataColumn;
-                    if (dataColumn != null)
-                    {
-                        dt.Columns.Add(dataColumn.FieldName);
-                        dataColumnNames.Add(dataColumn.FieldName);
-                    }
-                }
-                for (int i = 0; i < ASPxGridView1.VisibleRowCount; i++)
-                {
-                    //ASPxGridView1.Columns["WFMovimientoFecha"].CellStyle 
-                    object[] rowValues = ASPxGridView1.GetRowValues(i, dataColumnNames.ToArray()) as object[];
-                    rowValues[1] = Convert.ToDateTime(rowValues[1]).ToString("dd/MM/yyyy HH:mm:ss");
-                    dt.Rows.Add(rowValues);
-                }
-
-                int ic = 1;
-                foreach (DataColumn column in dt.Columns)
-                {
-                    osldocument.SetCellStyle(1, ic, style);
-                    osldocument.SetColumnWidth(ic, 20);
-                    if (ic == 2) { column.ColumnName = "FechaRadicacion"; }
-                    if (ic == 7) { column.ColumnName = "Acción"; }
-                    ic++;
-                }
-
-                osldocument.ImportDataTable(1, 1, dt, true);
-                //osldocument.SaveAs(pathfile);
-                Response.Clear();
-                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                //this.ASPxGridViewExporter1.WriteXls(stream);
-                Response.AddHeader("Content-Disposition", "attachment; filename=" + NombreArchivo);
-                osldocument.SaveAs(Response.OutputStream);
-                Response.Flush(); //sIN EsTa linEA gENERA ERRoR
-                Response.End();
-                Session["DatosGrid"] = null;
-            }
+            case 0:
+                contentType = "application/pdf";
+                fileName = "PivotGrid.pdf";
+                this.ASPxGridViewExporter1.WritePdf(stream);
+                break;
+            case 1:
+                contentType = "application/ms-excel";
+                fileName = "PivotGrid.xls";
+                this.ASPxGridViewExporter1.WriteXls(stream);
+                break;
+            case 2:
+                contentType = "text/enriched";
+                fileName = "PivotGrid.rtf";
+                this.ASPxGridViewExporter1.WriteRtf(stream);
+                break;
+            case 3:
+                contentType = "text/plain";
+                fileName = "PivotGrid.txt";
+                this.ASPxGridViewExporter1.WriteCsv(stream);
+                break;
         }
-        catch (Exception error)
+        Byte[] buffer = stream.GetBuffer();
+        // Dim buffer() As Byte = stream.GetBuffer()
+
+        String disposition;
+        if (saveAs)
         {
-            this.ExceptionDetails.Text = "Se ha presentado un problema, por favor intente nuevamente o en su defecto realice una consulta con menor cantidad de registros.  " + error;
+            disposition = "attachment";
+        }
+        else
+        {
+            disposition = "inline";
+        }
+        if(listExportFormat.SelectedIndex!=-1)
+         {  
+        Response.Clear();
+        Response.Buffer = false;
+        Response.AppendHeader("Content-Type", contentType);
+        Response.AppendHeader("Content-Transfer-Encoding", "binary");
+        Response.AppendHeader("Content-Disposition", disposition + "; filename=" + fileName);
+        Response.BinaryWrite(buffer);
+        Response.End();
         }
     }
     protected void ASPxGridView1_HtmlRowPrepared(object sender, DevExpress.Web.ASPxGridView.ASPxGridViewTableRowEventArgs e)

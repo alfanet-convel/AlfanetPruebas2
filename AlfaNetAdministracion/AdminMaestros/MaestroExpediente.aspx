@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MainMaster.master" AutoEventWireup="true"  CodeFile="MaestroExpediente.aspx.cs" Inherits="_MaestroExpediente" %>
 
-<%@ Register Assembly="DevExpress.Web.ASPxTreeList.v9.1, Version=9.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
-    Namespace="DevExpress.Web.ASPxTreeList" TagPrefix="dxwtl" %>
+
 
 <%@ Register Assembly="DevExpress.Web.ASPxEditors.v9.1, Version=9.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
     Namespace="DevExpress.Web.ASPxEditors" TagPrefix="dxe" %>
@@ -137,7 +136,7 @@ style="WIDTH: 80%;">
 <TABLE style="WIDTH: 100%"><TBODY><TR><TD style="WIDTH: 10%"></TD><TD style="WIDTH: 80%"><ajax:autocompleteextender id="AutoCompleteExpediente" runat="server" targetcontrolid="TxtExpediente" servicepath="../../AutoComplete.asmx" servicemethod="GetExpedienteByTextNombrenull" minimumprefixlength="0" enablecaching="true" completionsetcount="12" completioninterval="100" CompletionListCssClass="autocomplete_completionListElement" CompletionListItemCssClass="autocomplete_listItem" CompletionListHighlightedItemCssClass="autocomplete_highlightedListItem"></ajax:autocompleteextender> 
 <Ajax:TextBoxWatermarkExtender id="TxtBoxWatermarkExpediente1" watermarkText="Seleccione un Expediente ..." runat="server" TargetControlID="TxtExpediente"></Ajax:TextBoxWatermarkExtender> <asp:RequiredFieldValidator id="RequiredFieldValidator1" runat="server" ValidationGroup="ValGroup1" SetFocusOnError="True" ErrorMessage="RequiredFieldValidator" ControlToValidate="TxtExpediente">*</asp:RequiredFieldValidator> <asp:Label id="LblExpediente" runat="server" Width="100px" Text="Expediente" Font-Bold="False" CssClass="PropLabels"></asp:Label> <asp:TextBox id="TxtExpediente" runat="server" CssClass="TxtAutoComplete"></asp:TextBox> <asp:ImageButton id="ImgBtnFind" onclick="ImgBtnFind_Click" runat="server" ToolTip="Buscar" ImageUrl="~/AlfaNetImagen/ToolBar/zoom.png" ValidationGroup="ValGroup1"></asp:ImageButton></TD><TD style="WIDTH: 10%"></TD></TR></TBODY></TABLE><TABLE style="WIDTH: 100%"><TBODY><TR><TD style="WIDTH: 100px; HEIGHT: 72px"></TD><TD style="WIDTH: 40%"><TABLE style="BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none" border=0><TBODY><TR><TD style="WIDTH: 57px; HEIGHT: 8px"><STRONG><EM><SPAN style="FONT-FAMILY: Poor Richard"></SPAN></EM></STRONG><asp:Label id="LblFindBy" runat="server" Width="67px" Font-Size="Smaller" ForeColor="RoyalBlue" Text="Buscar Por: " Font-Bold="True" BorderStyle="None"></asp:Label></TD><TD style="VERTICAL-ALIGN: middle; WIDTH: 115px; HEIGHT: 8px; TEXT-ALIGN: center"><asp:RadioButtonList id="RadBtnLstFindby" runat="server" Width="106px" Font-Size="Smaller" ForeColor="RoyalBlue" RepeatDirection="Horizontal" Font-Italic="False" OnSelectedIndexChanged="RadBtnLstFindby_SelectedIndexChanged" AutoPostBack="True"><asp:ListItem Selected="True" Value="1">Nombre</asp:ListItem>
 <asp:ListItem Value="2">Codigo</asp:ListItem>
-</asp:RadioButtonList></TD></TR></TBODY></TABLE><asp:HiddenField id="HFCodigoSeleccionado" runat="server"></asp:HiddenField> </TD><TD style="WIDTH: 100px; HEIGHT: 72px"></TD></TR></TBODY></TABLE><Ajax:TabContainer style="TEXT-ALIGN: left" id="TCExpediente" runat="server" Width="650px" BackColor="White" AutoPostBack="True" ActiveTabIndex="0" OnActiveTabChanged="TCExpediente_OnActiveTabChanged"><Ajax:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1"><HeaderTemplate>
+</asp:RadioButtonList></TD></TR></TBODY></TABLE><asp:HiddenField id="HFCodigoSeleccionado" runat="server"></asp:HiddenField> </TD><TD style="WIDTH: 100px; HEIGHT: 72px"></TD></TR></TBODY></TABLE><Ajax:TabContainer style="TEXT-ALIGN: left" id="TCExpediente" runat="server" Width="650px" BackColor="White" AutoPostBack="True" ActiveTabIndex="1" OnActiveTabChanged="TCExpediente_OnActiveTabChanged"><Ajax:TabPanel runat="server" HeaderText="TabPanel1" ID="TabPanel1"><HeaderTemplate>
                                 <img src="../../AlfaNetImagen/ToolBar/user_edit.png"  />
                             
 </HeaderTemplate>
@@ -229,7 +228,7 @@ style="WIDTH: 80%;">
 </InsertItemTemplate>
 <ItemTemplate>
 <asp:ImageButton id="ImageButton1" runat="server" Text="Editar" ImageUrl="~/AlfaNetImagen/ToolBar/Edit.png" CausesValidation="False" CommandName="Edit"></asp:ImageButton>&nbsp;<asp:ImageButton id="ImageButton2" runat="server" Text="Nuevo" ImageUrl="~/AlfaNetImagen/ToolBar/Add.png" CausesValidation="False" CommandName="New">
-</asp:ImageButton>&nbsp;<asp:ImageButton id="ImageButton3" runat="server" Text="Eliminar" ImageUrl="~/AlfaNetImagen/ToolBar/Delete.png" CausesValidation="False" OnClick="ImageButton3_Click" ></asp:ImageButton> 
+</asp:ImageButton>&nbsp;<asp:ImageButton id="ImageButton3" runat="server" Text="Eliminar" ImageUrl="~/AlfaNetImagen/ToolBar/Delete.png" CausesValidation="False"></asp:ImageButton> 
 </ItemTemplate>
 </asp:TemplateField>
 </Fields>
@@ -244,9 +243,9 @@ style="WIDTH: 80%;">
 <TBODY><TR><TD style="TEXT-ALIGN: left"><asp:ValidationSummary id="ValidationSummary1" runat="server" Width="100%"></asp:ValidationSummary> </TD></TR></TBODY></TABLE></DIV>
 </ContentTemplate>
 </Ajax:TabPanel>
-<Ajax:TabPanel runat="server" HeaderText="TabPanel2" ID="TabPanel2" Visible="False">
+<Ajax:TabPanel runat="server" HeaderText="TabPanel2" ID="TabPanel2" Visible="True">
 <HeaderTemplate>
-<asp:Image id="Image1" runat="server" Width="16px" ImageUrl="~/AlfaNetImagen/ToolBar/lock_edit.png" Height="16px" Visible="False"></asp:Image> 
+<asp:Image id="Image1" runat="server" Width="16px" ImageUrl="~/AlfaNetImagen/ToolBar/lock_edit.png" Height="16px"></asp:Image> 
 </HeaderTemplate>
 <ContentTemplate>
 <TABLE width="100%"><TBODY>
@@ -322,8 +321,7 @@ style="WIDTH: 80%;">
 </asp:TreeView>
 
                             &nbsp;<br />
-                            <dxwtl:ASPxTreeList ID="ASPxTreeList1" runat="server" DataSourceID="ExpedienteByIdDataSource"
-                                Visible="False"></dxwtl:ASPxTreeList>
+                            
 
 
  
@@ -415,32 +413,7 @@ style="WIDTH: 80%;">
 </TBODY></TABLE>
 </ContentTemplate>
 </Ajax:TabPanel>
-</Ajax:TabContainer> <Ajax:ModalPopupExtender id="MPEMensaje" runat="server" TargetControlID="LblExpediente" PopupControlID="PnlMensaje" BackgroundCssClass="MessageStyle"></Ajax:ModalPopupExtender> <asp:Panel style="DISPLAY: none" id="PnlMensaje" runat="server" Width="125px" Height="63px"><BR /><TABLE width=275 border=0><TBODY><TR><TD style="BACKGROUND-COLOR: activecaption" align=center><asp:Label id="Label5" runat="server" Width="120px" Font-Size="14pt" ForeColor="White" Text="Mensaje" Font-Bold="False"></asp:Label></TD><TD style="WIDTH: 12%; BACKGROUND-COLOR: activecaption"><asp:ImageButton style="VERTICAL-ALIGN: top" id="btnCerrar" runat="server" ImageUrl="~/AlfaNetImagen/ToolBar/cross.png" ImageAlign="Right" CausesValidation="False"></asp:ImageButton> </TD></TR><TR><TD style="HEIGHT: 45px; BACKGROUND-COLOR: highlighttext" align=center colSpan=2><BR /><IMG src="../../AlfaNetImagen/ToolBar/error.png" />&nbsp; &nbsp;<asp:Label id="LblMessageBox" runat="server" Font-Size="12pt" ForeColor="Red"></asp:Label><br /></TD></TR></TBODY></TABLE></asp:Panel> <asp:Panel style="DISPLAY: none" id="Panel1" runat="server" Width="125px" Height="63px">
-    <BR />
-    <TABLE width=275 border=0>
-        <TBODY>
-            <TR>
-                <TD style="BACKGROUND-COLOR: activecaption" align=center>
-                    <asp:Label ID="Label6" runat="server" Font-Bold="False" Font-Size="14pt" ForeColor="White"
-                        Text="Mensaje" Width="120px"></asp:Label></td>
-                <TD style="WIDTH: 12%; BACKGROUND-COLOR: activecaption">
-                    <asp:ImageButton ID="ImageButton4" runat="server" CausesValidation="False" ImageAlign="Right"
-                        ImageUrl="~/AlfaNetImagen/ToolBar/cross.png" Style="vertical-align: top" />
-                </td>
-            </tr>
-            <TR>
-                <TD style="HEIGHT: 45px; BACKGROUND-COLOR: highlighttext" align=center colSpan=2>
-                    <BR />
-                    <IMG src="../../AlfaNetImagen/ToolBar/error.png" />&nbsp; &nbsp;<asp:Label ID="Label7"
-                        runat="server" Font-Size="12pt" ForeColor="Red"></asp:Label><br />
-                    <asp:Button ID="Button1" runat="server" Text="Aceptar" OnClick="Button1_Click" />
-                    <asp:Button ID="Button2" runat="server" Text="Cancelar" /></td>
-            </tr>
-        </tbody>
-    </table>
-</asp:Panel>
-    <Ajax:ModalPopupExtender ID="MPEConfirmar" runat="server" TargetControlID="Label7" PopupControlID="Panel1" BackgroundCssClass="MessageStyle">
-    </Ajax:ModalPopupExtender>
+</Ajax:TabContainer> <Ajax:ModalPopupExtender id="MPEMensaje" runat="server" TargetControlID="LblExpediente" PopupControlID="PnlMensaje" BackgroundCssClass="MessageStyle"></Ajax:ModalPopupExtender> <asp:Panel style="DISPLAY: none" id="PnlMensaje" runat="server" Width="125px" Height="63px"><BR /><TABLE width=275 border=0><TBODY><TR><TD style="BACKGROUND-COLOR: activecaption" align=center><asp:Label id="Label5" runat="server" Width="120px" Font-Size="14pt" ForeColor="White" Text="Mensaje" Font-Bold="False"></asp:Label></TD><TD style="WIDTH: 12%; BACKGROUND-COLOR: activecaption"><asp:ImageButton style="VERTICAL-ALIGN: top" id="btnCerrar" runat="server" ImageUrl="~/AlfaNetImagen/ToolBar/cross.png" ImageAlign="Right" CausesValidation="False"></asp:ImageButton> </TD></TR><TR><TD style="HEIGHT: 45px; BACKGROUND-COLOR: highlighttext" align=center colSpan=2><BR /><IMG src="../../AlfaNetImagen/ToolBar/error.png" />&nbsp; &nbsp;<asp:Label id="LblMessageBox" runat="server" Font-Size="12pt" ForeColor="Red"></asp:Label><br /></TD></TR></TBODY></TABLE></asp:Panel> 
    
 </ContentTemplate>
 </asp:UpdatePanel> 
@@ -488,9 +461,6 @@ style="WIDTH: 80%;">
                                 Type="String"  />
                         </SelectParameters>
                     </asp:ObjectDataSource>           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</TD>
     <td style="width: 10%">
     </td>

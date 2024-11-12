@@ -289,7 +289,7 @@
                                         &nbsp;<br />
                                         &nbsp;<asp:UpdateProgress ID="UpdateProgress1" runat="server">
                                             <ProgressTemplate>
-                                                <img src="../../AlfaNetImagen/Icono/Load.gif" style="vertical-align: middle; text-align: center" />
+                                                <img src="../../AlfaNetImagen/WFImagen/Load.gif" style="vertical-align: middle; text-align: center" />
                                             </ProgressTemplate>
                                         </asp:UpdateProgress>
                                         <Ajax:TextBoxWatermarkExtender ID="TxtBoxWatermarkDepartamento" runat="server" TargetControlID="TxtDepartamento"

@@ -27,12 +27,43 @@ using DevExpress.Web.ASPxGridView;
 using DevExpress.Web.ASPxCallbackPanel;
 //using log4net;
 //using System.Drawing;
-
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Spreadsheet;
+using SpreadsheetLight;
+using System.ComponentModel;
+using System.Net;
+using System.Net.NetworkInformation;
+using DevExpress.Web.ASPxGridView;
 
 public partial class _DocRecibido : System.Web.UI.Page 
 {
+	string GrupoCod = "1";
+    string ModuloLog = "Consultas";
+    string ConsecutivoCodigo = "1";
+    string ConsecutivoCodigoErr = "4";
+    string ActividadLogCodigoErr = "ERROR";
     protected void Page_Load(object sender, EventArgs e)
         {  
+		IPHostEntry host;
+            string localIP = "";
+            host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (IPAddress ip in host.AddressList)
+            {
+                if (ip.AddressFamily.ToString() == "InterNetwork")
+                {
+                    String IPAdd = string.Empty;
+                    IPAdd = Request.ServerVariables["HTTP_X_FORWARDER_FOR"];
+                    if (String.IsNullOrEmpty(IPAdd))
+                    {
+                        IPAdd = Request.ServerVariables["REMOTE_ADDR"];
+                        localIP = IPAdd.ToString();
+                        Session["IP"] = localIP;
+                    }
+                }
+            }
+			Session["Nombrepc"] = host.HostName.ToString();
+            // System.Net.IPHostEntry hostEntry = Dns.GetHostEntry(Session["IP"].ToString());
+            // Dns.BeginGetHostEntry(Request.UserHostAddress, new AsyncCallback(GetHostNameCallBack), Request.UserHostAddress);
          try
             {    
                 if (!IsPostBack)
@@ -274,6 +305,8 @@ public partial class _DocRecibido : System.Web.UI.Page
     }
     protected void cmdBuscar_Click(object sender, EventArgs e)
     {
+		DateTime FechaInicio = DateTime.Now;
+        string ActLogCod = "CONSULTAR";
         ////////////////////////////////////////////////
         MembershipUser user = Membership.GetUser();
         Object CodigoRuta = user.ProviderUserKey;
@@ -358,6 +391,29 @@ public partial class _DocRecibido : System.Web.UI.Page
                 value_pipe(TxtBProcedencia.Text) + "?" + value_pipe(TxtBProcedencia.Text) + "?" + value_pipe(TxtBMedio.Text) + "?" + value_pipe(TxtBDestino.Text) + "?" + value_pipe(TxtBDestino.Text) + "?" +
                 Profile.GetProfile(Profile.UserName).CodigoDepUsuario.ToString() + "?" + value_pipe(TxtBNaturaleza.Text) + "?" + lotros;
 
+			//OBTENER CONSECUTIVO LOG
+            DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter Consecutivos = new DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter();
+            DSGrupoSQL.ConsecutivoLogsDataTable Conse = new DSGrupoSQL.ConsecutivoLogsDataTable();
+            Conse = Consecutivos.GetConseActual(ConsecutivoCodigo);
+            DataRow[] fila = Conse.Select();
+            string x = fila[0].ItemArray[0].ToString();
+            string LOG = Convert.ToString(x);
+            string Datosfin = Log;
+            DateTime FechaFin = DateTime.Now;
+            Int64 LogId = Convert.ToInt64(LOG);
+            string username = Profile.UserName.ToString();
+            DSUsuarioTableAdapters.UserIdByUserNameTableAdapter objUsr = new DSUsuarioTableAdapters.UserIdByUserNameTableAdapter();
+            string UsrId = objUsr.Aspnet_UserIDByUserName(username).ToString();
+            string IP = Session["IP"].ToString();
+            string NombreEquipo = Session["Nombrepc"].ToString();
+            System.Web.HttpBrowserCapabilities nav = Request.Browser;
+            string Navegador = nav.Browser.ToString() + " Version: " + nav.Version.ToString();
+            //Insert de log buscar recibidos
+            DSLogAlfaNetTableAdapters.LogAlfaNetTableAdapter ConsultaRadicado = new DSLogAlfaNetTableAdapters.LogAlfaNetTableAdapter();
+            ConsultaRadicado.InsertConsulta(LogId, username, FechaInicio, ActLogCod, GrupoCod, ModuloLog, Datosfin, FechaFin, IP, NombreEquipo, Navegador);
+            //Se hace el consecutivo de Logs
+            DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter ConseLogs = new DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter();
+            ConseLogs.GetConsecutivos(ConsecutivoCodigo);
 
         //ILog logger = LogManager.GetLogger("primerEjemplo");
         //logger.Fatal(Ip_cliente +" "+ Log); 
@@ -381,6 +437,31 @@ public partial class _DocRecibido : System.Web.UI.Page
         catch (Exception Error)
         {
             this.ExceptionDetails.Text = "Problema" + Error;
+			//Variables de LOG ERROR
+            string grupoo = "";
+			//OBTENER CONSECUTIVO DE LOGS
+            string DatosFinales = "Error al consultar Doc Recibido " + ExceptionDetails.Text;
+            DateTime WFMovimientoFechaFin = DateTime.Now;
+            DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter ConsecutivosErr = new DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter();
+            DSGrupoSQL.ConsecutivoLogsDataTable ConseErr = new DSGrupoSQL.ConsecutivoLogsDataTable();
+            ConseErr = ConsecutivosErr.GetConseError(ConsecutivoCodigoErr);
+            DataRow[] fila2 = ConseErr.Select();
+            string z = fila2[0].ItemArray[0].ToString();
+            string LOGERROR = Convert.ToString(z);
+            Int64 LogIdErr = Convert.ToInt64(LOGERROR);
+            string username = Profile.GetProfile(Profile.UserName).UserName.ToString();
+            DSUsuarioTableAdapters.UserIdByUserNameTableAdapter objUsr = new DSUsuarioTableAdapters.UserIdByUserNameTableAdapter();
+            string UsrId = objUsr.Aspnet_UserIDByUserName(username).ToString();
+            string IP = HttpContext.Current.Session["IP"].ToString();
+            string NombreEquipo = HttpContext.Current.Session["Nombrepc"].ToString();
+            System.Web.HttpBrowserCapabilities nav = HttpContext.Current.Request.Browser;
+            string Navegador = nav.Browser.ToString() + " Version: " + nav.Version.ToString();
+            //Se hace el insert de Log error
+            DSLogAlfaNetTableAdapters.LogAlfaNetErroresTableAdapter Errores = new DSLogAlfaNetTableAdapters.LogAlfaNetErroresTableAdapter();
+            Errores.GetError(LogIdErr, username, FechaInicio, ActividadLogCodigoErr, grupoo, ModuloLog, DatosFinales, WFMovimientoFechaFin, IP, NombreEquipo, Navegador);
+            //Se hace el update consecutivo de Logs
+            DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter ConseLogs = new DSGrupoSQLTableAdapters.ConsecutivoLogsTableAdapter();
+            ConseLogs.GetConsecutivos(ConsecutivoCodigoErr);
         }
 
     }

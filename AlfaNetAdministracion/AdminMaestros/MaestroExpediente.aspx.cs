@@ -41,7 +41,7 @@ public partial class _MaestroExpediente : System.Web.UI.Page
             }
             else
             {
-               // ((MainMaster)this.Master).showmenu();
+                ((MainMaster)this.Master).showmenu();
             }
             this.TCExpediente.ActiveTabIndex = 0;
             
@@ -869,16 +869,6 @@ public partial class _MaestroExpediente : System.Web.UI.Page
         this.ListBox1.Items.Clear();
         ListBox1_Load();
         TreeVdependencia_Load();
-    }
-    protected void ImageButton3_Click(object sender, EventArgs e)
-    {
-        this.Label7.Text = "¿Va a eliminar el expediente seleccionado, Está seguro?";
-        MPEConfirmar.Show();
-    }
-    protected void Button1_Click(object sender, EventArgs e)
-    {
-        //Elimina el expediente actual
-        this.DVExpediente.DeleteItem();
     }
 }
    

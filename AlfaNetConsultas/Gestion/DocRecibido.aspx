@@ -306,7 +306,7 @@ style="WIDTH: 100%; HEIGHT: 17px; BACKGROUND-COLOR: #ffffff" colSpan=3><asp:Upda
                                                         <asp:ListItem Value="Detalle">Detalle</asp:ListItem>
                                                         <asp:ListItem Value="NroExterno">Nro Externo</asp:ListItem>
                                                         <asp:ListItem Value="Anexo">Anexo</asp:ListItem>
-                                                        <asp:ListItem Value="NúmerodeGuía">Número de Guía</asp:ListItem>
+                                                        <asp:ListItem Value="NÃºmerodeGuÃ­a">NÃºmero de GuÃ­a</asp:ListItem>
                                                     </asp:DropDownList><asp:TextBox ID="TxtBOtros" runat="server" Visible="False" Width="400px"></asp:TextBox>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel> </TD></TR><TR><TD 
@@ -317,7 +317,7 @@ style="WIDTH: 100%; COLOR: white; BACKGROUND-COLOR: #507cd1" colSpan=3><TABLE st
                                                     <asp:TableCell ID="clNuevo" runat="server" CssClass="BarButton"> <asp:LinkButton ID="Nuevo" runat="server" ForeColor="White" BorderStyle="None" CausesValidation="False"
                                                             CssClass="CommandButton" OnClick="BtnNuevo_Click" TabIndex="24" Text="Nueva Busqueda"></asp:LinkButton></asp:TableCell>
                                                 </asp:TableRow>
-                                            </asp:Table>     </TD><TD></TD><TD><asp:RadioButtonList id="RBLTblRpt" runat="server" RepeatDirection="Horizontal">
+                                            </asp:Table> </TD><TD></TD><TD><asp:RadioButtonList id="RBLTblRpt" runat="server" RepeatDirection="Horizontal">
                                                                 <asp:ListItem Selected="True" Value="1">Tabla Resultados</asp:ListItem>
                                                                 <asp:ListItem Value="0">Reporte</asp:ListItem>
                                                             </asp:RadioButtonList></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
@@ -442,6 +442,9 @@ style="WIDTH: 100%; COLOR: white; BACKGROUND-COLOR: #507cd1" colSpan=3><TABLE st
 <asp:HyperLink id="HyperLink1" runat="server" Text='<%# Eval("RadicadoCodigo") %>' Font-Underline="True" CssClass="LinKBtnStyleBig"></asp:HyperLink>
 </DataItemTemplate>
 </dxwgv:GridViewDataTextColumn>
+<dxwgv:GridViewDataTextColumn FieldName="RadicadoFechaProcedencia" Caption="Fecha Procedencia" VisibleIndex="2">
+<Settings AutoFilterCondition="Contains"></Settings>
+</dxwgv:GridViewDataTextColumn>
 <dxwgv:GridViewDataTextColumn FieldName="WFMovimientoFecha" Caption="Fecha Radicacion" VisibleIndex="2">
 <Settings AutoFilterCondition="Contains"></Settings>
 </dxwgv:GridViewDataTextColumn>
@@ -479,7 +482,7 @@ Rpta:<BR /><asp:Label id="Label6" runat="server" Visible="False" Text='<%# Bind(
 <dxwgv:GridViewDataTextColumn FieldName="ExpedienteCodigo" UnboundType="String" Caption="Opciones" VisibleIndex="10">
 <Settings AllowDragDrop="False" AllowAutoFilterTextInputTimer="False" AllowAutoFilter="False" ShowFilterRowMenu="False" AllowHeaderFilter="False" ShowInFilterControl="False" AllowSort="False" AllowGroup="False"></Settings>
 <DataItemTemplate>
-<asp:HyperLink id="HyperLinkVisor" runat="server" Text="Imágenes" Font-Underline="True" CssClass="LinKBtnStyleBig"></asp:HyperLink><BR /><asp:HyperLink id="HprLnkHisExtven" runat="server" Font-Underline="True" CssClass="LinKBtnStyleBig">Histórico</asp:HyperLink><BR /><asp:HyperLink id="HprLnkExp" runat="server" Text="Expediente" CssClass="LinKBtnStyleBig" Target="_blank"></asp:HyperLink> <asp:HiddenField id="HFExp" runat="server" Value='<%# Eval("ExpedienteCodigo") %>'></asp:HiddenField> <asp:HiddenField id="HFGrupo" runat="server" Value='<%# Eval("GrupoCodigo") %>'></asp:HiddenField> 
+<asp:HyperLink id="HyperLinkVisor" runat="server" Text="ImÃ¡genes" Font-Underline="True" CssClass="LinKBtnStyleBig"></asp:HyperLink><BR /><asp:HyperLink id="HprLnkHisExtven" runat="server" Font-Underline="True" CssClass="LinKBtnStyleBig">HistÃ³rico</asp:HyperLink><BR /><asp:HyperLink id="HprLnkExp" runat="server" Text="Expediente" CssClass="LinKBtnStyleBig" Target="_blank"></asp:HyperLink> <asp:HiddenField id="HFExp" runat="server" Value='<%# Eval("ExpedienteCodigo") %>'></asp:HiddenField> <asp:HiddenField id="HFGrupo" runat="server" Value='<%# Eval("GrupoCodigo") %>'></asp:HiddenField> 
 </DataItemTemplate>
 </dxwgv:GridViewDataTextColumn>
 </Columns>
@@ -519,6 +522,7 @@ Rpta:<BR /><asp:Label id="Label6" runat="server" Visible="False" Text='<%# Bind(
                     <SelectParameters>
                         <asp:Parameter Name="WFMovimientoFecha" Type="String" />
                         <asp:Parameter Name="WFMovimientoFecha1" Type="String" />
+                        <asp:Parameter Name="RadicadoFechaProcedencia" Type="String" />
                         <asp:Parameter Name="RadicadoCodigo" Type="String" />
                         <asp:Parameter Name="RadicadoCodigo1" Type="String" />
                         <asp:Parameter DefaultValue="" Name="ExpedienteCodigo" Type="String" />
@@ -539,7 +543,7 @@ Rpta:<BR /><asp:Label id="Label6" runat="server" Visible="False" Text='<%# Bind(
                         <asp:Parameter Name="RadicadoCodigo" Type="String" />
                         <asp:Parameter Name="GrupoCodigo" Type="String" />
                         <asp:Parameter Name="WFMovimientoFecha" Type="DateTime" />
-                        <asp:Parameter Name="RadicadoFechaProcedencia" Type="DateTime" />
+                        <asp:Parameter Name="RadicadoFechaProcedencia" Type="String" />
                         <asp:Parameter Name="ProcedenciaCodigo" Type="String" />
                         <asp:Parameter Name="RadicadoNumeroExterno" Type="String" />
                         <asp:Parameter Name="NaturalezaCodigo" Type="String" />

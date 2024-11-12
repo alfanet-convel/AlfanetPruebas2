@@ -14,6 +14,8 @@ using System.Xml.Linq;
 public partial class AlfaNetConsultas_Gestion_ConsultaFacturas : System.Web.UI.Page
 {    
     String depCod = string.Empty;
+    string urlConsultaRadicacionMasia = ConfigurationManager.AppSettings["UrlConsultaRadicacionMasia"];
+
     protected void Page_Load(object sender, EventArgs e)
     {
         ////////////////////////////////////////////////
@@ -22,6 +24,6 @@ public partial class AlfaNetConsultas_Gestion_ConsultaFacturas : System.Web.UI.P
         String UserId = Convert.ToString(CodigoRuta);
         ////////////////////////////////////////////////        
         depCod = Profile.GetProfile(User.Identity.Name).CodigoDepUsuario.ToString();
-        facturasFrame.Attributes.Add("src", "http:/localhost/RadicacionMasivaSitePruebas/RadicacionMasiva/ConsultaRadicacionMasiva.aspx?dep=" + depCod);
+        facturasFrame.Attributes.Add("src", urlConsultaRadicacionMasia + depCod);
     }    
 }

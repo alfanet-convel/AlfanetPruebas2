@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,8 @@ public partial class AlfaNetConsulta_Inventario_Gestion_Inventarios : System.Web
 {
     String depCod = string.Empty;
     String admin = string.Empty;
+
+    string urlConsultaUnidad = ConfigurationManager.AppSettings["UrlConsultaUnidad"];
     protected void Page_Load(object sender, EventArgs e)
     {
         ////////////////////////////////////////////////
@@ -26,6 +29,6 @@ public partial class AlfaNetConsulta_Inventario_Gestion_Inventarios : System.Web
         {
             admin = "S";
         }
-        CargarUnidadFrame.Attributes.Add("src", "https://alfanet.fbscgr.gov.co/Inventarios/ConsultaUnidad.aspx?dep=" + depCod + "&user=" + admin);
+        CargarUnidadFrame.Attributes.Add("src", urlConsultaUnidad + depCod + "&user=" + admin);
     }
 }
